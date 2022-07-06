@@ -2,10 +2,10 @@ import FormInput from "../components/FormInput";
 
 function Home() {
     return (
-        <div className="grid grid-cols-3 h-screen w-screen text-white">
+        <div className="grid grid-cols-1 lg:grid-cols-3 h-screen w-screen text-white">
             {/* description */}
             <div className="bg-primary h-full p-4">
-                <h1 className="text-6xl py-4">LOGO</h1>
+                <h1 className="text-6xl pb-4">LOGO</h1>
                 <p className="text-xl">
                     Lorem ipsum dolor sit amet consectetur adipisicing elit.
                     Fugit, similique aut. Corrupti reprehenderit perferendis,
