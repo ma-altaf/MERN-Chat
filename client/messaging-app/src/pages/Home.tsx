@@ -5,9 +5,17 @@ function Home() {
     const [username, setUsername] = useState("");
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
+    const [confirmPassword, setConfirmPassword] = useState("");
 
-    const submitForm = () => {
+    const submitForm = async () => {
         // validate inputs
+
+        // confirm both passwords are equal
+        if (password !== confirmPassword) {
+            return Promise.reject({
+                error: "ConfirmPassword: Incorrect password;",
+            });
+        }
     };
 
     return (
@@ -95,6 +103,27 @@ function Home() {
                             onChange={(e) => setPassword(e.target.value)}
                         />
                     </div>
+
+                    {!isLogin && (
+                        <div className="flex items-center py-1">
+                            <label
+                                className="text-gray-500"
+                                htmlFor="confirm_password"
+                            >
+                                Confirm Password:
+                            </label>
+                            <input
+                                className="w-full px-2 mx-2 outline-none border-b-2 focus:border-green-600 transition-all"
+                                type="password"
+                                name="password"
+                                id="confirm_password"
+                                value={confirmPassword}
+                                onChange={(e) =>
+                                    setConfirmPassword(e.target.value)
+                                }
+                            />
+                        </div>
+                    )}
 
                     <input
                         type="button"

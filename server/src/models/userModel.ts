@@ -1,3 +1,4 @@
+import { error } from "console";
 import { Schema, model } from "mongoose";
 
 interface IUser {
@@ -11,6 +12,7 @@ const userSchema = new Schema<IUser>({
     username: {
         type: String,
         required: [true, "username is required"],
+        // minlength:1,
         unique: true,
     },
     email: {
@@ -21,7 +23,7 @@ const userSchema = new Schema<IUser>({
         validate: {
             validator: (v: string) =>
                 /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(v),
-            message: (props) => `${props.value} is not a valide email adress`,
+            message: (props) => `${props.value} is not a valide email address`,
         },
     },
     password: {

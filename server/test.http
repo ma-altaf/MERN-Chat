@@ -2,13 +2,23 @@ GET http://localhost:3001/
 
 ###
 
-post http://localhost:3001/account/create
+post http://localhost:3001/users/create
 Content-Type: application/json
 
 {
-    "username": "blah",
-    "email": "email@gmail.com",
-    "password": "pas"
+    "username": "incorrectEmailUser",
+    "email": "email1",
+    "password": "test123"
+}
+
+###
+
+post http://localhost:3001/users/login
+Content-Type: application/json
+
+{
+    "email": "email@email.com",
+    "password": "test12"
 }
 
 
