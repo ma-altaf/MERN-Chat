@@ -81,7 +81,7 @@ function Index() {
             {/* description */}
             <div
                 id="description"
-                className="h-screen col-span-2 bg-green-600 p-8"
+                className="h-screen col-span-2 bg-black text-white p-8"
             >
                 <h1 className="text-6xl">LOGO</h1>
                 <p className="text-xl my-4">
@@ -92,7 +92,7 @@ function Index() {
                     commodi distinctio!
                 </p>
                 <a
-                    className="px-4 py-2 bg-green-700 rounded uppercase cursor-pointer absolute bottom-0 m-4 right-0 block  md:hidden"
+                    className="px-4 py-2 bg-white text-black rounded uppercase cursor-pointer md:hidden"
                     href="#formIpnut"
                 >
                     register
@@ -123,12 +123,12 @@ function Index() {
 
                     {/* username input field */}
                     {!isLogin && (
-                        <div className="flex items-center py-1">
+                        <div className="py-1">
                             <label className="text-gray-500" htmlFor="username">
                                 Name:
                             </label>
                             <input
-                                className="w-full px-2 mx-2 outline-none border-b-2 focus:border-green-600 transition-all"
+                                className="w-full outline-none border-b-2 focus:border-black transition-all"
                                 type="text"
                                 name="username"
                                 id="username"
@@ -139,12 +139,12 @@ function Index() {
                     )}
 
                     {/* email input field */}
-                    <div className="flex items-center py-1">
+                    <div className="py-1">
                         <label className="text-gray-500" htmlFor="email">
                             Email:
                         </label>
                         <input
-                            className="w-full px-2 mx-2 outline-none border-b-2 focus:border-green-600 transition-all"
+                            className="w-full outline-none border-b-2 focus:border-black transition-all"
                             type="email"
                             name="email"
                             id="email"
@@ -154,12 +154,12 @@ function Index() {
                     </div>
 
                     {/* password input field */}
-                    <div className="flex items-center py-1">
+                    <div className="py-1">
                         <label className="text-gray-500" htmlFor="password">
                             Password:
                         </label>
                         <input
-                            className="w-full px-2 mx-2 outline-none border-b-2 focus:border-green-600 transition-all"
+                            className="w-full outline-none border-b-2 focus:border-black transition-all"
                             type="password"
                             name="password"
                             id="password"
@@ -169,7 +169,7 @@ function Index() {
                     </div>
 
                     {!isLogin && (
-                        <div className="flex items-center py-1">
+                        <div className="py-1">
                             <label
                                 className="text-gray-500"
                                 htmlFor="confirm_password"
@@ -177,7 +177,7 @@ function Index() {
                                 Confirm Password:
                             </label>
                             <input
-                                className="w-full px-2 mx-2 outline-none border-b-2 focus:border-green-600 transition-all"
+                                className="w-full outline-none border-b-2 focus:border-black transition-all"
                                 type="password"
                                 name="password"
                                 id="confirm_password"
@@ -192,7 +192,7 @@ function Index() {
                     <input
                         type="button"
                         value="submit"
-                        className="px-4 py-2 bg-green-600  rounded uppercase my-4 cursor-pointer"
+                        className="px-4 py-2 bg-black text-white rounded uppercase my-4 cursor-pointer"
                         onClick={() => submitForm()}
                     />
                     <h5>
@@ -200,7 +200,7 @@ function Index() {
                             ? "Don't have an account? "
                             : "Already have an account? "}
                         <p
-                            className="underline text-blue-500 inline-block cursor-pointer"
+                            className="underline inline-block cursor-pointer"
                             onClick={() => {
                                 setUsername("");
                                 setEmail("");
