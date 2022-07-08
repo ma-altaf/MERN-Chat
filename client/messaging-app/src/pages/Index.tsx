@@ -41,7 +41,7 @@ function Index() {
 
                 console.log("login completed:", await user.json());
             } catch (error) {
-                console.log("network error", error);
+                return setErrorMessage("Network error");
             }
         } else {
             if (username.length === 0) {
@@ -74,7 +74,7 @@ function Index() {
 
                 console.log("create user completed:", await user.json());
             } catch (error) {
-                console.log("network error", error);
+                return setErrorMessage("Network error");
             }
         }
 
