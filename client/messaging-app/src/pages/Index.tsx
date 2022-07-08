@@ -1,5 +1,7 @@
+import landingImg from "../assets/landingImg.jpg";
 import { useState } from "react";
 import apiFetch from "../utils/apiFetch";
+import { useNavigate } from "react-router-dom";
 
 function Index() {
     const [isLogin, setIsLogin] = useState(false);
@@ -8,6 +10,7 @@ function Index() {
     const [password, setPassword] = useState("");
     const [confirmPassword, setConfirmPassword] = useState("");
     const [errorMessage, setErrorMessage] = useState("");
+    const navigate = useNavigate();
 
     const submitForm = async () => {
         // reset the error message
@@ -74,6 +77,9 @@ function Index() {
                 console.log("network error", error);
             }
         }
+
+        // either created an account or login
+        navigate("/home");
     };
 
     return (
@@ -81,7 +87,12 @@ function Index() {
             {/* description */}
             <div
                 id="description"
-                className="h-screen col-span-2 bg-black text-white p-8"
+                className="h-screen col-span-2 text-white p-8"
+                style={{
+                    backgroundImage: `url(${landingImg})`,
+                    objectFit: "cover",
+                    backgroundAttachment: "fixed",
+                }}
             >
                 <h1 className="text-6xl">LOGO</h1>
                 <p className="text-xl my-4">
