@@ -18,8 +18,11 @@ Content-Type: application/json
 
 {
     "email": "email@email.com",
-    "password": "test12"
+    "password": "test123"
 }
 
+###
+
+GET http://localhost:3001/users/getUser
 
 
