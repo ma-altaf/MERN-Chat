@@ -6,6 +6,7 @@ const apiFetch = (
     fetch(process.env.REACT_APP_REST_API_URL + route, {
         method: method,
         mode: "cors",
+        credentials: "include",
         headers: {
             "Content-Type": "application/json",
         },

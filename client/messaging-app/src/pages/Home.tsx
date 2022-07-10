@@ -1,14 +1,10 @@
-import { useEffect } from "react";
-import apiFetch from "../utils/apiFetch";
+import { useContext, useEffect } from "react";
+import { authcontext } from "../context/AuthContext";
 
 function Home() {
-    useEffect(() => {
-        apiFetch("/users/getUser");
+    const [user] = useContext(authcontext);
 
-        return () => {};
-    }, []);
-
-    return <div>Home</div>;
+    return <div>{user && user.username}</div>;
 }
 
 export default Home;

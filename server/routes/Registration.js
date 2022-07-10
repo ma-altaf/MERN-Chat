@@ -83,7 +83,9 @@ router
                 return res
                     .status(400)
                     .send({ error: "could not create token" });
-            res.cookie("token", token, { httpOnly: true });
+            res.cookie("token", token, {
+                httpOnly: true,
+            });
             return res.status(200).send({
                 username: dbUser.username,
                 avatarURL: dbUser.avatarURL,
@@ -95,8 +97,9 @@ router
 
     .get("/getUser", jwtAuthenticateToken, async (req, res) => {
         const { userID } = req.body;
-        console.log(userID);
-        res.status(200).send("data");
+        const { username, avatarURL } = await User.findOne({ _id: userID });
+
+        res.status(200).send({ username, avatarURL });
     });
 
 const generateToken = (id) => {

@@ -1,7 +1,9 @@
 import landingImg from "../assets/landingImg.jpg";
 import { useState } from "react";
 import apiFetch from "../utils/apiFetch";
-import { useNavigate } from "react-router-dom";
+import { Navigate, useNavigate } from "react-router-dom";
+import { useContext } from "react";
+import { authcontext } from "../context/AuthContext";
 
 function Index() {
     const [isLogin, setIsLogin] = useState(false);
@@ -11,6 +13,7 @@ function Index() {
     const [confirmPassword, setConfirmPassword] = useState("");
     const [errorMessage, setErrorMessage] = useState("");
     const navigate = useNavigate();
+    const [user, setUser] = useContext(authcontext);
 
     const submitForm = async () => {
         // reset the error message
@@ -38,6 +41,8 @@ function Index() {
                 if (!user.ok) {
                     return setErrorMessage((await user.json()).error);
                 }
+
+                setUser!(await user.json());
 
                 console.log("login completed:", await user.json());
             } catch (error) {
@@ -72,6 +77,8 @@ function Index() {
                     }
                 }
 
+                setUser!(await user.json());
+
                 console.log("create user completed:", await user.json());
             } catch (error) {
                 return setErrorMessage("Network error");
@@ -84,6 +91,7 @@ function Index() {
 
     return (
         <div className="grid grid-cols-1 lg:grid-cols-3 h-screen w-screen">
+            {user!.username && <Navigate to={"/home"} />}
             {/* description */}
             <div
                 id="description"
