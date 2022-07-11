@@ -2,7 +2,7 @@ import { createContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import apiFetch from "../utils/apiFetch";
 
-type User = {
+export type User = {
     username: string;
     avatarURL: string;
 };

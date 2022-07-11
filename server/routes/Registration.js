@@ -100,6 +100,10 @@ router
         const { username, avatarURL } = await User.findOne({ _id: userID });
 
         res.status(200).send({ username, avatarURL });
+    })
+
+    .get("/logOut", jwtAuthenticateToken, (req, res) => {
+        res.clearCookie("token").end();
     });
 
 const generateToken = (id) => {

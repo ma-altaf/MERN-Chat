@@ -90,7 +90,7 @@ function Index() {
     };
 
     return (
-        <div className="grid grid-cols-1 lg:grid-cols-3 h-screen w-screen">
+        <div className="grid grid-cols-1 lg:grid-cols-3 h-screen w-screen ">
             {user!.username && <Navigate to={"/home"} />}
             {/* description */}
             <div
@@ -111,7 +111,7 @@ function Index() {
                     commodi distinctio!
                 </p>
                 <a
-                    className="px-4 py-2 bg-white text-black rounded uppercase cursor-pointer md:hidden"
+                    className="px-4 py-2 bg-white text-black rounded-lg uppercase cursor-pointer md:hidden"
                     href="#formIpnut"
                 >
                     register
@@ -120,7 +120,7 @@ function Index() {
             {/* login form */}
             <div
                 id="formIpnut"
-                className="min-h-screen w-full p-4 flex-col justify-center items-center flex bg-white relative"
+                className="min-h-screen w-full p-4 flex-col justify-center items-center flex relative bg-white"
             >
                 <a
                     className="px-4 py-2 uppercase cursor-pointer absolute top-0 m-4 left-0 block  md:hidden text-gray-500"
@@ -135,7 +135,7 @@ function Index() {
                     </h1>
 
                     {errorMessage && (
-                        <div className="bg-red-300 p-2 my-2 rounded w-full">
+                        <div className="bg-red-300 p-2 my-2 rounded-lg w-full">
                             {errorMessage}
                         </div>
                     )}
@@ -211,7 +211,7 @@ function Index() {
                     <input
                         type="button"
                         value="submit"
-                        className="px-4 py-2 bg-black text-white rounded uppercase my-4 cursor-pointer"
+                        className="px-4 py-2 bg-black text-white rounded-lg uppercase my-4 cursor-pointer"
                         onClick={() => submitForm()}
                     />
                     <h5>
