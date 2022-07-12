@@ -2,8 +2,10 @@ require("dotenv").config();
 const express = require("express");
 const mongoose = require("mongoose");
 const cors = require("cors");
-const registration = require("./routes/Registration");
+const registration = require("./routes/registration");
+const user = require("./routes/user");
 const cookieParser = require("cookie-parser");
+const jwtAuthenticateToken = require("./middleware/jwtAuthenticateToken");
 
 mongoose
     .connect(process.env.MONGODB_URI)
@@ -15,6 +17,7 @@ mongoose
         app.use(express.json());
         app.use(cookieParser());
         app.use("/users", registration);
+        app.use("/user", jwtAuthenticateToken, user);
 
         // TODO: remove
         app.get("/", (req, res) => {
