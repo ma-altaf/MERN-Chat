@@ -7,8 +7,7 @@ const router = express.Router();
 
 router.post("/add", async (req, res) => {
     const { reqUsername, userID } = req.body;
-    console.log(reqUsername);
-
+    let roomID = "";
     try {
         const { _id } = await User.findOne({ username: reqUsername });
 
@@ -24,15 +23,18 @@ router.post("/add", async (req, res) => {
                     members,
                 });
 
-                console.log(newRoom);
+                roomID = newRoom.roomID;
             } catch (error) {
                 console.log(error);
                 return res.status(400).send({ error: error.message });
             }
+        } else {
+            const room = await Room.findOne({ members }).select("roomID");
+            roomID = room.roomID;
         }
-        console.log("to redirect");
-        // TODO: redirect to the room
-        // res.redirect();
+        console.log(roomID);
+
+        res.status(200).send(roomID);
     } catch (error) {
         console.log(error);
         return res.status(404).send({ error: "User not found" });
