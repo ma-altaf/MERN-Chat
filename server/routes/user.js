@@ -46,7 +46,8 @@ router
 
         const rooms = await Room.find({ members: { $all: userID } })
             .select("_id members")
-            .populate("members", "avatarURL username -_id");
+            .populate("members", "avatarURL username -_id")
+            .sort({ updatedAt: -1 });
 
         res.send(rooms);
     });
