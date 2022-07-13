@@ -1,7 +1,6 @@
 const express = require("express");
 const User = require("../models/userModel");
 const Room = require("../models/roomModel");
-const { v4 } = require("uuid");
 
 const router = express.Router();
 
@@ -19,28 +18,25 @@ router.post("/add", async (req, res) => {
         if (!(await Room.exists({ members }))) {
             try {
                 const newRoom = await Room.create({
-                    roomID: v4(),
                     members,
                 });
 
-                roomID = newRoom.roomID;
+                roomID = newRoom._id;
             } catch (error) {
-                console.log(error);
+                console.log("error:", error);
                 return res.status(400).send({ error: error.message });
             }
         } else {
-            const room = await Room.findOne({ members }).select("roomID");
-            roomID = room.roomID;
+            const room = await Room.findOne({ members }).select("_id");
+            roomID = room._id;
         }
-        console.log(roomID);
+        console.log(roomID.toString());
 
-        res.status(200).send(roomID);
+        return res.status(200).send(roomID.toString());
     } catch (error) {
-        console.log(error);
+        console.log("error:", error);
         return res.status(404).send({ error: "User not found" });
     }
-
-    res.end();
 });
 
 module.exports = router;
