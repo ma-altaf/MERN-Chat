@@ -13,7 +13,7 @@ function RoomCard({ room }: Props) {
     const { _id: roomID, members } = room;
 
     const roomData = members.find(
-        (element) => element.username != user?.username
+        (element) => element.username !== user?.username
     );
 
     return (

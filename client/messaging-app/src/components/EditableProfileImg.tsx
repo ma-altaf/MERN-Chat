@@ -8,7 +8,7 @@ function EditableProfileImg() {
         <img
             className="w-52 rounded-full aspect-square object-cover"
             src={user?.avatarURL || defaultPPImg}
-            alt="profile picture"
+            alt="current user"
         />
     );
 }

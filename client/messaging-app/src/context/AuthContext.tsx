@@ -24,7 +24,6 @@ function AuthContext({ children }: Props) {
 
     useEffect(() => {
         getUser();
-
         return () => {};
     }, []);
 
@@ -40,7 +39,7 @@ function AuthContext({ children }: Props) {
 
             setUser(userData);
         } catch (error) {
-            alert("Error fetching the user");
+            console.error("Error fetching the user");
         }
     };
 

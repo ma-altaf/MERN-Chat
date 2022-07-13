@@ -13,7 +13,7 @@ function UserBanner({ user, setUser }: Props) {
     const logOut = async () => {
         const res = await apiFetch("/users/logout");
         if (res.ok) {
-            setUser != undefined && setUser({ username: "", avatarURL: "" });
+            setUser !== undefined && setUser({ username: "", avatarURL: "" });
             navigate("/");
         } else {
             alert("Could not log out");
