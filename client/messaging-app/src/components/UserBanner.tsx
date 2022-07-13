@@ -21,7 +21,7 @@ function UserBanner({ user, setUser }: Props) {
     };
 
     return (
-        <div className="w-full lg:w-1/2 rounded-lg p-8 shadow-sm bg-white flex justify-center items-center flex-col lg:flex-row relative">
+        <div className="w-full lg:w-1/2 rounded-lg p-8 shadow bg-white flex justify-center items-center flex-col lg:flex-row relative">
             <button
                 className="absolute top-0 right-0 m-1 p-1 text-2xl"
                 onClick={logOut}

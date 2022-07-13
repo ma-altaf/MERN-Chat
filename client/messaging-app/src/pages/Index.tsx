@@ -43,8 +43,6 @@ function Index() {
                 }
 
                 setUser!(await user.json());
-
-                console.log("login completed:", await user.json());
             } catch (error) {
                 return setErrorMessage("Network error");
             }
@@ -78,8 +76,6 @@ function Index() {
                 }
 
                 setUser!(await user.json());
-
-                console.log("create user completed:", await user.json());
             } catch (error) {
                 return setErrorMessage("Network error");
             }
