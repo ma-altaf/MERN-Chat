@@ -26,3 +26,21 @@ Content-Type: application/json
 GET http://localhost:3001/users/getUser
 
 
+###
+POST http://localhost:3001/user/add
+Content-Type: application/json
+
+{
+    "reqUsername": "testUser1"
+}
+
+###
+GET http://localhost:3001/user/contactList
+
+###
+POST http://localhost:3001/message/send
+Content-Type: application/json
+
+
+
+

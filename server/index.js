@@ -4,6 +4,7 @@ const mongoose = require("mongoose");
 const cors = require("cors");
 const registration = require("./routes/registration");
 const user = require("./routes/user");
+const message = require("./routes/message");
 const cookieParser = require("cookie-parser");
 const jwtAuthenticateToken = require("./middleware/jwtAuthenticateToken");
 
@@ -18,6 +19,7 @@ mongoose
         app.use(cookieParser());
         app.use("/users", registration);
         app.use("/user", jwtAuthenticateToken, user);
+        app.use("/message", jwtAuthenticateToken, message);
 
         // TODO: remove
         app.get("/", (req, res) => {
