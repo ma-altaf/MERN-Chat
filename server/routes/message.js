@@ -2,7 +2,7 @@ const express = require("express");
 
 const router = express.Router();
 
-router.post("/send", (req, res) => {
+router.post("/send", async (req, res) => {
     try {
         const { userID: senderID, content, roomID } = req.body;
     } catch (error) {

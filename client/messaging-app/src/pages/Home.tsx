@@ -16,6 +16,7 @@ function Home() {
 
     useEffect(() => {
         getRooms();
+
         return () => {};
     }, []);
 

@@ -1,17 +1,27 @@
 require("dotenv").config();
 const express = require("express");
 const mongoose = require("mongoose");
+const cookieParser = require("cookie-parser");
 const cors = require("cors");
+const http = require("http");
+const { Server } = require("socket.io");
 const registration = require("./routes/registration");
 const user = require("./routes/user");
 const message = require("./routes/message");
-const cookieParser = require("cookie-parser");
 const jwtAuthenticateToken = require("./middleware/jwtAuthenticateToken");
 
 mongoose
     .connect(process.env.MONGODB_URI)
     .then(() => {
         const app = express();
+        const server = http.createServer(app);
+        const io = new Server(server, {
+            cors: { origin: process.env.WEB_URL },
+        });
+
+        io.on("connection", (socket) => {
+            console.log("a user connected:", socket.id);
+        });
 
         // middlewares
         app.use(cors({ origin: true, credentials: true }));
@@ -27,7 +37,7 @@ mongoose
         });
 
         // start the server
-        app.listen(process.env.PORT_NUM, () => {
+        server.listen(process.env.PORT_NUM, () => {
             console.log("connected to port " + process.env.PORT_NUM);
         });
     })
