@@ -20,7 +20,16 @@ mongoose
         });
 
         io.on("connection", (socket) => {
-            console.log("a user connected:", socket.id);
+            console.log(socket.id);
+            socket.on("join_room", async (roomID) => {
+                await socket.join(roomID);
+
+                socket.to(roomID).emit("joined", "join!");
+            });
+
+            socket.on("leave_room", () => {
+                socket.rooms.forEach((room) => socket.leave(room));
+            });
         });
 
         // middlewares
