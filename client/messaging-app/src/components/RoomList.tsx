@@ -1,3 +1,4 @@
+import { Socket } from "socket.io-client";
 import { Room } from "../pages/Home";
 import RoomCard from "./RoomCard";
 

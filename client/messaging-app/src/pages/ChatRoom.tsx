@@ -1,13 +1,13 @@
+import { useContext } from "react";
 import { useParams } from "react-router-dom";
-import { io, Socket } from "socket.io-client";
-
-const socket: Socket = io(`${process.env.REACT_APP_REST_API_URL}`);
+import { socketContext } from "./Home";
 
 function ChatRoom() {
+    const socket = useContext(socketContext);
+    const { roomID } = useParams();
     socket.on("connect", () => {
         console.log("hello world");
     });
-    const { roomID } = useParams();
 
     return <div>{roomID}</div>;
 }
