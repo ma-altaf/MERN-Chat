@@ -1,7 +1,9 @@
 import { io, Socket } from "socket.io-client";
 import { createContext } from "react";
 
-const socket = io(`${process.env.REACT_APP_REST_API_URL}`);
+const socket = io(`${process.env.REACT_APP_REST_API_URL}`, {
+    withCredentials: true,
+});
 export const socketContext = createContext<Socket | undefined>(socket);
 
 type Props = {
