@@ -40,26 +40,33 @@ mongoose
         });
 
         io.on("connection", (socket) => {
-            console.log(socket.id);
+            console.log("socket id:", socket.id);
             let roomID, userID;
 
             const cookieRef = socket.handshake.headers?.cookie;
-            if (!cookieRef) {
-                socket.disconnect();
-            }
 
-            const token = cookieRef.substring(
-                cookieRef.indexOf("token="),
-                cookieRef.indexOf(";")
+            let token = cookieRef?.substring(
+                cookieRef.indexOf("token=") + 6 // 6 since token= make 6 char
             );
+
+            if (token && token.indexOf(";") > 0)
+                token = token.substring(0, token.indexOf(";") || 0);
+
+            if (!token) {
+                console.log("cookie:", cookieRef);
+                console.log("token:", token);
+                return socket.disconnect();
+            }
 
             jwt.verify(token, process.env.JWT_SIGN_KEY, (err, user) => {
                 if (err) {
                     console.log(err);
-                    socket.disconnect();
+                    return socket.disconnect();
                 }
 
-                userID = user;
+                userID = user.userID;
+
+                console.log("user id:", userID);
 
                 socket.on("join_room", async (reqRoom) => {
                     roomID = reqRoom;

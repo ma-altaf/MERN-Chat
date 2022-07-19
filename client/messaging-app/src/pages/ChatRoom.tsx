@@ -12,7 +12,7 @@ type messageType = {
 function ChatRoom() {
     const [user] = useContext(authcontext);
     const { roomID } = useParams();
-    const socket = useContext(socketContext);
+    const [socket] = useContext(socketContext);
     const [message, setMessage] = useState<string>("");
     const [messages, setMessages] = useState<messageType[]>([]);
 

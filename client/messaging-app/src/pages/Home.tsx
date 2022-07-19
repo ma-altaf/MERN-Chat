@@ -12,7 +12,7 @@ export type Room = {
 };
 
 function Home() {
-    const socket = useContext(socketContext);
+    const [socket] = useContext(socketContext);
     const [user, setUser] = useContext(authcontext);
     const [rooms, setRooms] = useState<Room[]>([]);
 

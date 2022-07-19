@@ -4,6 +4,7 @@ import apiFetch from "../utils/apiFetch";
 import { Navigate, useNavigate } from "react-router-dom";
 import { useContext } from "react";
 import { authcontext } from "../context/AuthContext";
+import { socketContext } from "../context/SocketContext";
 
 function Index() {
     const [isLogin, setIsLogin] = useState(false);
@@ -14,6 +15,7 @@ function Index() {
     const [errorMessage, setErrorMessage] = useState("");
     const navigate = useNavigate();
     const [user, setUser] = useContext(authcontext);
+    const [socket, setSocket] = useContext(socketContext);
 
     const submitForm = async () => {
         // reset the error message
@@ -82,6 +84,7 @@ function Index() {
         }
 
         // either created an account or login
+        setSocket();
         navigate("/home");
     };
 
