@@ -77,13 +77,19 @@ mongoose
                 });
 
                 socket.on("send_msg", (message) => {
-                    socket.broadcast.to(roomID).emit("receive_msg", message);
+                    const content = message?.content;
+                    if (typeof content === "string" && content.length != 0) {
+                        socket.broadcast
+                            .to(roomID)
+                            .emit("receive_msg", message);
 
-                    Message.create({
-                        content: message.content,
-                        sender: mongoose.Types.ObjectId(userID),
-                        roomID: mongoose.Types.ObjectId(roomID),
-                    });
+                        // save the messages to the database
+                        Message.create({
+                            content,
+                            sender: mongoose.Types.ObjectId(userID),
+                            roomID: mongoose.Types.ObjectId(roomID),
+                        });
+                    }
                 });
 
                 socket.on("leave_room", () => {

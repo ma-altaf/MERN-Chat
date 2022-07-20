@@ -8,8 +8,6 @@ const setSocket = () => {
     socket = io(`${process.env.REACT_APP_REST_API_URL}`, {
         withCredentials: true,
     });
-
-    console.log("set socket:", socket);
 };
 
 export const socketContext = createContext<

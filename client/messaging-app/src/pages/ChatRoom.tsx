@@ -17,8 +17,6 @@ function ChatRoom() {
     const [messages, setMessages] = useState<messageType[]>([]);
 
     useEffect(() => {
-        socket?.emit("join_room", roomID);
-
         const joinedHandler = (messageRes: messageType[]) => {
             console.log(messageRes);
             setMessages((prev) => [...messageRes, ...prev]);
@@ -31,6 +29,8 @@ function ChatRoom() {
 
         socket?.on("receive_msg", newMsg);
 
+        socket?.emit("join_room", roomID);
+
         return () => {
             socket?.off("joined", joinedHandler);
             socket?.off("receive_msg", newMsg);
@@ -38,6 +38,10 @@ function ChatRoom() {
     }, [socket]);
 
     const sendMsg = () => {
+        // do not send the message if there is no text content
+        if (message.length === 0) {
+            return;
+        }
         const newMsg: messageType = {
             content: message,
             sender: user?.username || "",
