@@ -73,13 +73,17 @@ mongoose
                     await socket.join(roomID);
 
                     // TODO: user not receiving data
-                    socket.to(socket.id).emit("joined", `join!: ${socket.id}`);
+                    io.to(socket.id).emit("joined", `join!: ${socket.id}`);
                 });
 
                 socket.on("send_msg", (message) => {
-                    socket.to(roomID).emit("receive_msg", message);
+                    socket.broadcast.to(roomID).emit("receive_msg", message);
 
-                    Message.create(message);
+                    Message.create({
+                        content: message.content,
+                        sender: mongoose.Types.ObjectId(userID),
+                        roomID: mongoose.Types.ObjectId(roomID),
+                    });
                 });
 
                 socket.on("leave_room", () => {

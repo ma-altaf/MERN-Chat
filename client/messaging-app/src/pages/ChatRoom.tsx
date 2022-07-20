@@ -54,8 +54,8 @@ function ChatRoom() {
 
     return (
         <>
-            {messages.map((msg) => (
-                <div>{msg.content}</div>
+            {messages.map((msg, i) => (
+                <div key={i}>{msg.content}</div>
             ))}
             <input
                 type="text"
