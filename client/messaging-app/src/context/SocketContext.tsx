@@ -1,27 +1,35 @@
 import { io, Socket } from "socket.io-client";
-import { createContext } from "react";
-
-let socket: Socket;
-
-const setSocket = () => {
-    socket && socket.disconnect();
-    socket = io(`${process.env.REACT_APP_REST_API_URL}`, {
-        withCredentials: true,
-    });
-};
+import { createContext, useEffect, useState } from "react";
 
 export const socketContext = createContext<
     [Socket, () => void] | [undefined, () => void]
->([undefined, setSocket]);
+>([undefined, () => {}]);
 
 type Props = {
     children: JSX.Element;
 };
 
 function SocketContext({ children }: Props) {
-    setSocket();
+    const [socket, setSocket] = useState<Socket | undefined>(undefined);
+
+    const getSocket = () => {
+        setSocket(
+            io(`${process.env.REACT_APP_REST_API_URL}`, {
+                withCredentials: true,
+            })
+        );
+
+        console.log("set socket:", socket);
+    };
+
+    useEffect(() => {
+        getSocket();
+
+        return () => {};
+    }, []);
+
     return (
-        <socketContext.Provider value={[socket, setSocket]}>
+        <socketContext.Provider value={[socket, getSocket]}>
             {children}
         </socketContext.Provider>
     );

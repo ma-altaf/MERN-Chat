@@ -22,10 +22,10 @@ function ChatRoom() {
             setMessages((prev) => [...messageRes, ...prev]);
         };
 
-        socket?.on("joined", joinedHandler);
-
         const newMsg = (msg: messageType) =>
             setMessages((prev) => [...prev, msg]);
+
+        socket?.on("joined", joinedHandler);
 
         socket?.on("receive_msg", newMsg);
 

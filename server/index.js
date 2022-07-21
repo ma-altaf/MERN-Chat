@@ -79,9 +79,7 @@ mongoose
                 socket.on("send_msg", (message) => {
                     const content = message?.content;
                     if (typeof content === "string" && content.length != 0) {
-                        socket.broadcast
-                            .to(roomID)
-                            .emit("receive_msg", message);
+                        socket.to(roomID).emit("receive_msg", message);
 
                         // save the messages to the database
                         Message.create({
@@ -93,7 +91,9 @@ mongoose
                 });
 
                 socket.on("leave_room", () => {
-                    socket.rooms.forEach((room) => socket.leave(room));
+                    socket.rooms.forEach((room) => {
+                        room != socket.id && socket.leave(room);
+                    });
                 });
             });
         });
