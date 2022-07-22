@@ -83,8 +83,8 @@ function Index() {
             }
         }
 
-        // either created an account or login
-        getSocket();
+        // either created an account or logged in
+        getSocket(true);
         navigate("/home");
     };
 

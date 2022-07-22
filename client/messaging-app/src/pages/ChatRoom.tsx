@@ -1,4 +1,4 @@
-import { useContext, useEffect, useState } from "react";
+import { useContext, useEffect, useRef, useState } from "react";
 import { useParams } from "react-router-dom";
 import { authcontext } from "../context/AuthContext";
 import { socketContext } from "../context/SocketContext";
@@ -10,6 +10,7 @@ type messageType = {
 };
 
 function ChatRoom() {
+    const isMsgRequested = useRef(false);
     const [user] = useContext(authcontext);
     const { roomID } = useParams();
     const [socket] = useContext(socketContext);
@@ -29,7 +30,11 @@ function ChatRoom() {
 
         socket?.on("receive_msg", newMsg);
 
-        socket?.emit("join_room", roomID);
+        if (socket && !isMsgRequested.current) {
+            isMsgRequested.current = true;
+            socket?.emit("join_room", roomID);
+            console.log("request made:", socket);
+        }
 
         return () => {
             socket?.off("joined", joinedHandler);
@@ -58,7 +63,7 @@ function ChatRoom() {
 
     return (
         <>
-            {messages.map((msg, i) => (
+            {messages.map((msg: messageType, i) => (
                 <div key={i}>{msg.content}</div>
             ))}
             <input

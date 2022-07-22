@@ -72,8 +72,15 @@ mongoose
                     roomID = reqRoom;
                     await socket.join(roomID);
 
-                    // TODO: user not receiving data
-                    io.to(socket.id).emit("joined", `join!: ${socket.id}`);
+                    // send the previous messages to the user making the request
+                    io.to(socket.id).emit(
+                        "joined",
+                        await Message.find({ roomID: roomID })
+                            .sort({
+                                createdAt: 1,
+                            })
+                            .populate("")
+                    );
                 });
 
                 socket.on("send_msg", (message) => {
