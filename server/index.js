@@ -79,7 +79,8 @@ mongoose
                             .sort({
                                 createdAt: 1,
                             })
-                            .populate("")
+                            .populate("sender", "username -_id")
+                            .select("content createdAt -_id")
                     );
                 });
 
