@@ -11,6 +11,8 @@ const jwtAuthenticateToken = require("./middleware/jwtAuthenticateToken");
 const Message = require("./models/messageModel");
 const jwt = require("jsonwebtoken");
 
+const NUM_MSG = 3;
+
 mongoose
     .connect(process.env.MONGODB_URI)
     .then(() => {
@@ -41,7 +43,7 @@ mongoose
 
         io.on("connection", (socket) => {
             console.log("socket id:", socket.id);
-            let roomID, userID;
+            let roomID, userID, lastMsgRef;
 
             const cookieRef = socket.handshake.headers?.cookie;
 
@@ -68,19 +70,40 @@ mongoose
 
                 console.log("user id:", userID);
 
+                const paginateMsg = async (msgRef) => {
+                    const msgList = await Message.find({
+                        roomID: roomID,
+                        createdAt: { $lt: msgRef },
+                    })
+                        .sort({
+                            createdAt: -1,
+                        })
+                        .limit(NUM_MSG)
+                        .populate("sender", "username -_id")
+                        .select("content createdAt -_id");
+
+                    lastMsgRef = msgList[msgList.length - 1]?.createdAt;
+
+                    return msgList;
+                };
+
                 socket.on("join_room", async (reqRoom) => {
+                    lastMsgRef = Date.now();
                     roomID = reqRoom;
                     await socket.join(roomID);
 
                     // send the previous messages to the user making the request
                     io.to(socket.id).emit(
                         "joined",
-                        await Message.find({ roomID: roomID })
-                            .sort({
-                                createdAt: 1,
-                            })
-                            .populate("sender", "username -_id")
-                            .select("content createdAt -_id")
+                        await paginateMsg(lastMsgRef)
+                    );
+                });
+
+                socket.on("get_msg", async () => {
+                    // send the previous messages to the user making the request
+                    io.to(socket.id).emit(
+                        "get_msg",
+                        await paginateMsg(lastMsgRef)
                     );
                 });
 

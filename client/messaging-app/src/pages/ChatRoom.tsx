@@ -9,6 +9,8 @@ type messageType = {
     roomID: string;
 };
 
+const NUM_MSG = 3;
+
 function ChatRoom() {
     const isMsgRequested = useRef(false);
     const [user] = useContext(authcontext);
@@ -16,19 +18,23 @@ function ChatRoom() {
     const [socket] = useContext(socketContext);
     const [message, setMessage] = useState<string>("");
     const [messages, setMessages] = useState<messageType[]>([]);
+    const [isLastMessage, setIsLastMessage] = useState(false);
 
     useEffect(() => {
-        const joinedHandler = (messageRes: messageType[]) => {
-            console.log(messageRes);
+        const getPrevMsg = async (messageRes: messageType[]) => {
+            messageRes.reverse();
             setMessages((prev) => [...messageRes, ...prev]);
+            setIsLastMessage(messageRes.length < NUM_MSG);
         };
 
         const newMsg = (msg: messageType) =>
             setMessages((prev) => [...prev, msg]);
 
-        socket?.on("joined", joinedHandler);
+        socket?.on("joined", getPrevMsg);
 
         socket?.on("receive_msg", newMsg);
+
+        socket?.on("get_msg", getPrevMsg);
 
         if (socket && !isMsgRequested.current) {
             isMsgRequested.current = true;
@@ -37,8 +43,9 @@ function ChatRoom() {
         }
 
         return () => {
-            socket?.off("joined", joinedHandler);
+            socket?.off("joined", getPrevMsg);
             socket?.off("receive_msg", newMsg);
+            socket?.off("get_msg", getPrevMsg);
         };
     }, [socket]);
 
@@ -61,8 +68,13 @@ function ChatRoom() {
         setMessages((prev) => [...prev, newMsg]);
     };
 
+    const getMsg = async () => {
+        socket?.emit("get_msg");
+    };
+
     return (
         <>
+            {!isLastMessage && <button onClick={getMsg}>load more</button>}
             {messages.map((msg: messageType, i) => (
                 <div key={i}>{msg.content}</div>
             ))}
