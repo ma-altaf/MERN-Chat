@@ -1,13 +1,8 @@
 import { useContext, useEffect, useRef, useState } from "react";
 import { useParams } from "react-router-dom";
+import Message, { messageType } from "../components/Message";
 import { authcontext } from "../context/AuthContext";
 import { socketContext } from "../context/SocketContext";
-
-type messageType = {
-    content: string;
-    sender: string;
-    roomID: string;
-};
 
 const NUM_MSG = 3;
 
@@ -19,6 +14,7 @@ function ChatRoom() {
     const [message, setMessage] = useState<string>("");
     const [messages, setMessages] = useState<messageType[]>([]);
     const [isLastMessage, setIsLastMessage] = useState(false);
+    const messageListRef = useRef<HTMLDivElement>(null);
 
     useEffect(() => {
         const getPrevMsg = async (messageRes: messageType[]) => {
@@ -56,7 +52,7 @@ function ChatRoom() {
         }
         const newMsg: messageType = {
             content: message,
-            sender: user?.username || "",
+            sender: { username: user?.username || "" },
             roomID: roomID!,
         };
         socket?.emit("send_msg", newMsg);
@@ -73,20 +69,55 @@ function ChatRoom() {
     };
 
     return (
-        <>
-            {!isLastMessage && <button onClick={getMsg}>load more</button>}
-            {messages.map((msg: messageType, i) => (
-                <div key={i}>{msg.content}</div>
-            ))}
-            <input
-                type="text"
-                name="message"
-                id="message"
-                value={message}
-                onChange={(e) => setMessage(e.target.value)}
-            />
-            <button onClick={sendMsg}>send message</button>
-        </>
+        <div className="w-full h-screen grid grid-cols-1 md:grid-cols-3">
+            <div className="h-full w-full bg-green-200 hidden md:block"></div>
+            <div className="h-screen w-full col-span-2 bg-gray-100 flex flex-col justify-end">
+                <div
+                    className="w-full max-h-full flex flex-col overflow-y-auto px-4 relative"
+                    ref={messageListRef}
+                >
+                    {!isLastMessage && (
+                        <button
+                            className="bg-gray-300 rounded-lg px-2 w-fit m-1 mx-auto"
+                            onClick={getMsg}
+                        >
+                            Load more
+                        </button>
+                    )}
+                    {messages.map((msg: messageType, i) => (
+                        <Message key={i} message={msg} />
+                    ))}
+                    {/* TODO: make the component only available when scroll is needed */}
+                    <button
+                        className="sticky bottom-0 right-0 mr-auto my-2 py-1 px-2 bg-gray-300 rounded-lg w-fit"
+                        onClick={() => {
+                            messageListRef.current &&
+                                (messageListRef.current.scrollTop =
+                                    messageListRef.current?.scrollHeight || 0);
+                        }}
+                    >
+                        Scroll to bottom
+                    </button>
+                </div>
+                <span className="flex justify-between py-2 sticky bottom-0 z-10 bg-gray-100 px-4">
+                    <input
+                        autoComplete="off"
+                        className="rounded-lg shadow px-2 py-1 w-full"
+                        type="text"
+                        name="message"
+                        id="message"
+                        value={message}
+                        onChange={(e) => setMessage(e.target.value)}
+                    />
+                    <button
+                        className="uppercase px-2 py-1 ml-1 bg-green-500 rounded-lg"
+                        onClick={sendMsg}
+                    >
+                        send
+                    </button>
+                </span>
+            </div>
+        </div>
     );
 }
 
