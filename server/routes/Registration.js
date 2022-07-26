@@ -3,6 +3,7 @@ const User = require("../models/userModel");
 const bcrypt = require("bcrypt");
 const jwtAuthenticateToken = require("../middleware/jwtAuthenticateToken");
 const jwt = require("jsonwebtoken");
+const cloudinary = require("../utils/cloudinary");
 
 const MIN_PASSWORD_LENGTH = 6;
 const router = express.Router();
@@ -48,7 +49,7 @@ router
                 });
                 return res.status(200).send({
                     username,
-                    avatarURL: newUser.avatarURL,
+                    avatarURL: newUser.avatar?.url,
                 });
             } catch (error) {
                 return res
@@ -90,7 +91,7 @@ router
             });
             return res.status(200).send({
                 username: dbUser.username,
-                avatarURL: dbUser.avatarURL,
+                avatarURL: dbUser.avatar?.url,
             });
         } catch (error) {
             return res.status(400).send({ error: "could not create id" });
@@ -99,9 +100,36 @@ router
 
     .get("/getUser", jwtAuthenticateToken, async (req, res) => {
         const { userID } = req.body;
-        const { username, avatarURL } = await User.findOne({ _id: userID });
+        const { username, avatar } = await User.findOne({ _id: userID });
 
-        res.status(200).send({ username, avatarURL });
+        res.status(200).send({ username, avatarURL: avatar?.url });
+    })
+
+    .post("/changeProfilePic", jwtAuthenticateToken, async (req, res) => {
+        const { userID, image } = req.body;
+
+        try {
+            const user = await User.findById(userID);
+            const userPublicID = user.avatar.public_id;
+
+            const result = await cloudinary.uploader.upload(image, {
+                folder: "MERN/users/profilePics",
+                public_id:
+                    userPublicID?.substring(userPublicID.lastIndexOf("/")) ||
+                    "",
+            });
+
+            user.avatar = {
+                public_id: result.public_id,
+                url: result.secure_url,
+            };
+
+            user.save();
+
+            res.status(200).end();
+        } catch (error) {
+            console.log("error:", error);
+        }
     })
 
     .get("/logOut", jwtAuthenticateToken, (req, res) => {

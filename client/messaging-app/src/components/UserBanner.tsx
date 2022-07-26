@@ -10,6 +10,7 @@ type Props = {
 };
 function UserBanner({ user, setUser }: Props) {
     const navigate = useNavigate();
+
     const logOut = async () => {
         const res = await apiFetch("/users/logout");
         if (res.ok) {
