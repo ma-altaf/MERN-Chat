@@ -9,6 +9,7 @@ const registration = require("./routes/registration");
 const user = require("./routes/user");
 const jwtAuthenticateToken = require("./middleware/jwtAuthenticateToken");
 const Message = require("./models/messageModel");
+const Room = require("./models/roomModel");
 const jwt = require("jsonwebtoken");
 
 const NUM_MSG = 3;
@@ -107,13 +108,13 @@ mongoose
                     );
                 });
 
-                socket.on("send_msg", (message) => {
+                socket.on("send_msg", async (message) => {
                     const content = message?.content;
                     if (typeof content === "string" && content.length != 0) {
                         socket.to(roomID).emit("receive_msg", message);
 
                         // save the messages to the database
-                        Message.create({
+                        await Message.create({
                             content,
                             sender: mongoose.Types.ObjectId(userID),
                             roomID: mongoose.Types.ObjectId(roomID),

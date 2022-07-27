@@ -7,8 +7,9 @@ import { socketContext } from "../context/SocketContext";
 import apiFetch from "../utils/apiFetch";
 
 export type Room = {
-    _id: string;
-    members: [User];
+    roomID: string;
+    username: string;
+    avatarURL: string;
 };
 
 function Home() {

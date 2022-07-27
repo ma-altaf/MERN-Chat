@@ -46,10 +46,24 @@ router
 
         const rooms = await Room.find({ members: { $all: userID } })
             .select("_id members")
-            .populate("members", "avatar username -_id")
+            .populate("members", "avatar.url username")
             .sort({ updatedAt: -1 });
 
-        res.send(rooms);
+        res.send(
+            rooms.map((room) => {
+                const { _id, members } = room;
+
+                const contactDetail = members.find(
+                    (member) => member._id != userID
+                );
+
+                return {
+                    roomID: _id,
+                    username: contactDetail.username,
+                    avatarURL: contactDetail.avatar.url,
+                };
+            })
+        );
     });
 
 module.exports = router;

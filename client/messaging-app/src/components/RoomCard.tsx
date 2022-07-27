@@ -7,14 +7,11 @@ import { useNavigate } from "react-router-dom";
 type Props = {
     room: Room;
 };
+
 function RoomCard({ room }: Props) {
     const navigate = useNavigate();
     const [user] = useContext(authcontext);
-    const { _id: roomID, members } = room;
-
-    const roomData = members.find(
-        (element) => element.username !== user?.username
-    );
+    const { roomID, username, avatarURL } = room;
 
     return (
         <div
@@ -23,11 +20,11 @@ function RoomCard({ room }: Props) {
         >
             <img
                 className="w-32 rounded-full aspect-square object-cover"
-                src={roomData?.avatarURL || defaultPPImg}
-                alt={roomData?.username}
+                src={avatarURL || defaultPPImg}
+                alt={username}
             />
             <div className="p-1 h-full flex items-center">
-                <h1>{roomData?.username}</h1>
+                <h1>{username}</h1>
             </div>
         </div>
     );

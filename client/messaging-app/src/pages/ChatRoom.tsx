@@ -35,7 +35,7 @@ function ChatRoom() {
         if (socket && !isMsgRequested.current) {
             isMsgRequested.current = true;
             socket?.emit("join_room", roomID);
-            console.log("request made:", socket);
+            //TODO: remove console.log("request made:", socket);
         }
 
         return () => {
