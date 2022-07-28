@@ -5,6 +5,7 @@ const Room = require("./roomModel");
 const messageSchema = mongoose.Schema(
     {
         content: { type: String, required: true },
+        type: { type: String, enum: ["text", "image"] },
         sender: {
             type: mongoose.Schema.Types.ObjectId,
             required: true,

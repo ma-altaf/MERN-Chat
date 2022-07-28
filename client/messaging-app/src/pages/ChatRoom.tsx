@@ -1,6 +1,6 @@
-import { useContext, useEffect, useRef, useState } from "react";
+import { ChangeEvent, useContext, useEffect, useRef, useState } from "react";
 import { useParams } from "react-router-dom";
-import Message, { messageType } from "../components/Message";
+import Message, { messageType, MsgContentType } from "../components/Message";
 import { authcontext } from "../context/AuthContext";
 import { socketContext } from "../context/SocketContext";
 
@@ -45,16 +45,19 @@ function ChatRoom() {
         };
     }, [socket]);
 
-    const sendMsg = () => {
+    const createMsg = (content: string, type: MsgContentType): messageType => ({
+        content,
+        sender: { username: user?.username || "" },
+        type: type,
+        roomID: roomID!,
+    });
+
+    const sendTextMsg = () => {
         // do not send the message if there is no text content
         if (message.length === 0) {
             return;
         }
-        const newMsg: messageType = {
-            content: message,
-            sender: { username: user?.username || "" },
-            roomID: roomID!,
-        };
+        const newMsg = createMsg(message, "text");
         socket?.emit("send_msg", newMsg);
 
         // clear message text input on message submission
@@ -62,6 +65,25 @@ function ChatRoom() {
 
         // display message locally
         setMessages((prev) => [...prev, newMsg]);
+    };
+
+    const sendImgMsg = async (e: ChangeEvent<HTMLInputElement>) => {
+        const files = e.target.files;
+        if (!files) {
+            return;
+        }
+
+        for (let i = 0; i < files.length; i++) {
+            const file = files[i];
+
+            const newMsg = createMsg("", "image");
+
+            const image = new FileReader();
+            image.readAsDataURL(file);
+
+            image.onloadend = () =>
+                socket?.emit("send_msg", { ...newMsg, content: image.result });
+        }
     };
 
     const getMsg = async () => {
@@ -109,9 +131,23 @@ function ChatRoom() {
                         value={message}
                         onChange={(e) => setMessage(e.target.value)}
                     />
+                    <input
+                        type="file"
+                        className="hidden"
+                        onChange={(e) => sendImgMsg(e)}
+                        id="getImgBtn"
+                        accept="image/*"
+                        multiple
+                    />
+                    <label
+                        htmlFor="getImgBtn"
+                        className="uppercase px-2 py-1 ml-1 bg-gray-300 rounded-lg cursor-pointer"
+                    >
+                        img
+                    </label>
                     <button
                         className="uppercase px-2 py-1 ml-1 bg-green-500 rounded-lg"
-                        onClick={sendMsg}
+                        onClick={sendTextMsg}
                     >
                         send
                     </button>

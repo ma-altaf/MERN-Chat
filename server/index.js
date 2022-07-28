@@ -9,8 +9,8 @@ const registration = require("./routes/registration");
 const user = require("./routes/user");
 const jwtAuthenticateToken = require("./middleware/jwtAuthenticateToken");
 const Message = require("./models/messageModel");
-const Room = require("./models/roomModel");
 const jwt = require("jsonwebtoken");
+const cloudinary = require("./utils/cloudinary");
 
 const NUM_MSG = 3;
 
@@ -40,6 +40,7 @@ mongoose
         const io = new Server(server, {
             cookie: true,
             cors: { origin: process.env.WEB_URL, credentials: true },
+            maxHttpBufferSize: 1e8,
         });
 
         io.on("connection", (socket) => {
@@ -81,7 +82,7 @@ mongoose
                         })
                         .limit(NUM_MSG)
                         .populate("sender", "username -_id")
-                        .select("content createdAt -_id");
+                        .select("content createdAt type -_id");
 
                     lastMsgRef = msgList[msgList.length - 1]?.createdAt;
 
@@ -109,17 +110,57 @@ mongoose
                 });
 
                 socket.on("send_msg", async (message) => {
-                    const content = message?.content;
-                    if (typeof content === "string" && content.length != 0) {
-                        socket.to(roomID).emit("receive_msg", message);
+                    const { content, type } = message;
+                    let newMsg = {};
 
-                        // save the messages to the database
-                        await Message.create({
-                            content,
-                            sender: mongoose.Types.ObjectId(userID),
-                            roomID: mongoose.Types.ObjectId(roomID),
-                        });
+                    // filter incorrect request
+                    switch (type) {
+                        case "text":
+                            if (content.length === 0) return;
+                            newMsg = message;
+                            break;
+                        case "image":
+                            if (content) {
+                                // upload image to cloudinary
+                                try {
+                                    const result =
+                                        await cloudinary.uploader.upload(
+                                            content,
+                                            {
+                                                folder: `MERN/rooms/${roomID}`,
+                                            }
+                                        );
+
+                                    newMsg = {
+                                        ...message,
+                                        content: result.secure_url,
+                                    };
+                                    io.to(socket.id).emit(
+                                        "receive_msg",
+                                        newMsg
+                                    );
+                                } catch (error) {
+                                    console.log(
+                                        "error uploading image:",
+                                        error
+                                    );
+                                }
+                            }
+
+                            break;
+                        default:
+                            // incorrect type
+                            return;
                     }
+
+                    socket.to(roomID).emit("receive_msg", newMsg);
+                    // save the messages to the database
+                    await Message.create({
+                        content: newMsg.content,
+                        sender: mongoose.Types.ObjectId(userID),
+                        roomID: mongoose.Types.ObjectId(roomID),
+                        type,
+                    });
                 });
 
                 socket.on("leave_room", () => {
