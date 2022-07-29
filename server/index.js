@@ -120,6 +120,7 @@ mongoose
                             newMsg = message;
                             break;
                         case "video":
+                        case "audio":
                         case "image":
                             if (content) {
                                 // upload file to cloudinary
@@ -129,10 +130,12 @@ mongoose
                                             content,
                                             {
                                                 folder: `MERN/rooms/${roomID}`,
-                                                resource_type: "raw",
+                                                resource_type:
+                                                    type === "image"
+                                                        ? "image"
+                                                        : "video",
                                             }
                                         );
-                                    console.log("result:", result);
 
                                     newMsg = {
                                         ...message,

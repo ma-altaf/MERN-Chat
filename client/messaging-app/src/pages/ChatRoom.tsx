@@ -164,6 +164,20 @@ function ChatRoom() {
                     >
                         vid
                     </label>
+                    <input
+                        type="file"
+                        className="hidden"
+                        onChange={(e) => sendFileMsg(e, "audio")}
+                        id="getAudioBtn"
+                        accept="audio/*"
+                        multiple
+                    />
+                    <label
+                        htmlFor="getAudioBtn"
+                        className="uppercase px-2 py-1 ml-1 bg-gray-300 rounded-lg cursor-pointer"
+                    >
+                        audio
+                    </label>
                     <button
                         className="uppercase px-2 py-1 ml-1 bg-green-500 rounded-lg"
                         onClick={sendTextMsg}
