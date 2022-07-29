@@ -68,22 +68,26 @@ function ChatRoom() {
         setMessages((prev) => [...prev, newMsg]);
     };
 
-    const sendImgMsg = async (e: ChangeEvent<HTMLInputElement>) => {
+    const sendFileMsg = async (
+        e: ChangeEvent<HTMLInputElement>,
+        msgType: MsgContentType
+    ) => {
         const files = e.target.files;
         if (!files) {
             return;
         }
 
         for (let i = 0; i < files.length; i++) {
-            const file = files[i];
+            const newMsg = createMsg("", msgType);
 
-            const newMsg = createMsg("", "image");
+            const file = new FileReader();
+            file.readAsDataURL(files[i]);
 
-            const image = new FileReader();
-            image.readAsDataURL(file);
+            file.onloadend = () => {
+                console.log(file.result);
 
-            image.onloadend = () =>
-                socket?.emit("send_msg", { ...newMsg, content: image.result });
+                socket?.emit("send_msg", { ...newMsg, content: file.result });
+            };
         }
     };
 
@@ -135,7 +139,7 @@ function ChatRoom() {
                     <input
                         type="file"
                         className="hidden"
-                        onChange={(e) => sendImgMsg(e)}
+                        onChange={(e) => sendFileMsg(e, "image")}
                         id="getImgBtn"
                         accept="image/*"
                         multiple
@@ -145,6 +149,20 @@ function ChatRoom() {
                         className="uppercase px-2 py-1 ml-1 bg-gray-300 rounded-lg cursor-pointer"
                     >
                         img
+                    </label>
+                    <input
+                        type="file"
+                        className="hidden"
+                        onChange={(e) => sendFileMsg(e, "video")}
+                        id="getVidBtn"
+                        accept="video/*"
+                        multiple
+                    />
+                    <label
+                        htmlFor="getVidBtn"
+                        className="uppercase px-2 py-1 ml-1 bg-gray-300 rounded-lg cursor-pointer"
+                    >
+                        vid
                     </label>
                     <button
                         className="uppercase px-2 py-1 ml-1 bg-green-500 rounded-lg"

@@ -1,7 +1,7 @@
 import { useContext } from "react";
 import { authcontext } from "../context/AuthContext";
 
-export type MsgContentType = "text" | "image";
+export type MsgContentType = "text" | "image" | "video";
 
 export type messageType = {
     content: string;
@@ -54,6 +54,8 @@ function MsgContent({ type, content }: ContentProp) {
     switch (type) {
         case "image":
             return <img src={content} className="rounded-lg" />;
+        case "video":
+            return <video src={content} className="rounded-lg"></video>;
     }
     return <p>{content}</p>;
 }

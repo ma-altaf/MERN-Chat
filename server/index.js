@@ -119,17 +119,20 @@ mongoose
                             if (content.length === 0) return;
                             newMsg = message;
                             break;
+                        case "video":
                         case "image":
                             if (content) {
-                                // upload image to cloudinary
+                                // upload file to cloudinary
                                 try {
                                     const result =
                                         await cloudinary.uploader.upload(
                                             content,
                                             {
                                                 folder: `MERN/rooms/${roomID}`,
+                                                resource_type: "raw",
                                             }
                                         );
+                                    console.log("result:", result);
 
                                     newMsg = {
                                         ...message,
@@ -140,10 +143,7 @@ mongoose
                                         newMsg
                                     );
                                 } catch (error) {
-                                    console.log(
-                                        "error uploading image:",
-                                        error
-                                    );
+                                    console.log("error uploading file:", error);
                                 }
                             }
 
