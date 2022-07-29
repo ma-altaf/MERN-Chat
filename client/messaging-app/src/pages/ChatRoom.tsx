@@ -50,6 +50,7 @@ function ChatRoom() {
         sender: { username: user?.username || "" },
         type: type,
         roomID: roomID!,
+        createdAt: new Date().toISOString(),
     });
 
     const sendTextMsg = () => {

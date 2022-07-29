@@ -8,6 +8,7 @@ export type messageType = {
     sender: { username: string };
     type: MsgContentType;
     roomID: string;
+    createdAt: string;
 };
 
 type Props = {
@@ -15,9 +16,8 @@ type Props = {
 };
 
 function Message({ message }: Props) {
-    const { sender, content, type } = message;
+    const { sender, content, type, createdAt } = message;
     const [user] = useContext(authcontext);
-
     return (
         <span
             className={`w-full h-fit flex ${
@@ -34,6 +34,12 @@ function Message({ message }: Props) {
                 }`}
             >
                 <MsgContent type={type} content={content} />
+                <p className="w-full text-right">
+                    {new Date(createdAt).toLocaleString("en-US", {
+                        dateStyle: "short",
+                        timeStyle: "short",
+                    })}
+                </p>
             </div>
         </span>
     );
