@@ -27,9 +27,9 @@ function Message({ message }: Props) {
             }`}
         >
             <div
-                className={`p-1 m-1 rounded-lg  w-fit h-fit max-w-[50%] break-words overflow-hidden ${
+                className={`p-1 m-1 rounded-lg  w-fit h-fit max-w-[90%] md:max-w-[60%] break-words overflow-hidden ${
                     sender.username === user?.username
-                        ? "bg-green-100"
+                        ? "bg-black text-white"
                         : "bg-gray-200"
                 }`}
             >
@@ -53,7 +53,13 @@ type ContentProp = {
 function MsgContent({ type, content }: ContentProp) {
     switch (type) {
         case "image":
-            return <img src={content} className="rounded-lg" />;
+            return (
+                <img
+                    src={content}
+                    className="rounded-lg"
+                    onClick={() => window.open(content)}
+                />
+            );
         case "video":
             return (
                 <video src={content} controls className="rounded-lg"></video>

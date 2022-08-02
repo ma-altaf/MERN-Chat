@@ -6,7 +6,7 @@ import { socketContext } from "../context/SocketContext";
 import { IoAttach, IoArrowBack } from "react-icons/io5";
 import defaultPPImg from "../assets/defaultPP.jpg";
 
-const NUM_MSG = 3;
+const NUM_MSG = 10;
 
 function ChatRoom() {
     const isMoreMsgRequested = useRef(false);
@@ -105,7 +105,7 @@ function ChatRoom() {
 
     return (
         <div className="w-full h-screen grid grid-cols-1 md:grid-cols-3">
-            <div className="md:h-full w-full bg-green-200 z-50 top-0 absolute md:relative flex md:flex-col items-center py-1 md:py-10">
+            <div className="md:h-full w-full bg-black text-white z-50 top-0 absolute md:relative flex md:flex-col items-center py-2 md:py-10">
                 <Link
                     to={"/home"}
                     className="md:absolute top-0 p-1 left-0 text-xl md:text-3xl"
@@ -158,7 +158,7 @@ function ChatRoom() {
                         onChange={(e) => setMessage(e.target.value)}
                     />
                     {isAttachPanelVisible && (
-                        <div className="bg-gray-200 py-3 px-1 rounded-lg absolute top-0 -translate-y-[100%]">
+                        <div className="bg-gray-200 py-3 px-1 rounded-lg absolute top-0 right-0 mx-6 -translate-y-[100%]">
                             <input
                                 type="file"
                                 className="hidden"
@@ -211,7 +211,7 @@ function ChatRoom() {
                         <IoAttach />
                     </button>
                     <button
-                        className="uppercase px-2 py-1 ml-1 bg-green-500 rounded-lg"
+                        className="uppercase px-2 py-1 ml-1 bg-black text-white rounded-lg"
                         onClick={sendTextMsg}
                     >
                         send

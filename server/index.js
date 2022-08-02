@@ -12,7 +12,7 @@ const Message = require("./models/messageModel");
 const jwt = require("jsonwebtoken");
 const cloudinary = require("./utils/cloudinary");
 
-const NUM_MSG = 3;
+const NUM_MSG = 10;
 
 mongoose
     .connect(process.env.MONGODB_URI)
