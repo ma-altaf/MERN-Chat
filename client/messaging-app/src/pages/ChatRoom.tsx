@@ -9,6 +9,7 @@ import defaultPPImg from "../assets/defaultPP.jpg";
 const NUM_MSG = 3;
 
 function ChatRoom() {
+    const isMoreMsgRequested = useRef(false);
     const isMsgRequested = useRef(false);
     const [user] = useContext(authcontext);
     const { roomID } = useParams();
@@ -22,10 +23,11 @@ function ChatRoom() {
     const { avatarURL, username } = useLocation()?.state;
 
     useEffect(() => {
-        const getPrevMsg = async (messageRes: messageType[]) => {
+        const getPrevMsg = (messageRes: messageType[]) => {
             messageRes.reverse();
             setMessages((prev) => [...messageRes, ...prev]);
             setIsLastMessage(messageRes.length < NUM_MSG);
+            isMoreMsgRequested.current = false;
         };
 
         const newMsg = (msg: messageType) =>
@@ -95,7 +97,10 @@ function ChatRoom() {
     };
 
     const getMsg = async () => {
-        socket?.emit("get_msg");
+        if (!isMoreMsgRequested.current) {
+            isMoreMsgRequested.current = true;
+            socket?.emit("get_msg");
+        }
     };
 
     return (
@@ -121,7 +126,7 @@ function ChatRoom() {
                 >
                     {!isLastMessage && (
                         <button
-                            className="bg-gray-300 rounded-lg px-2 w-fit m-1 mx-auto"
+                            className="bg-gray-300 rounded-lg px-2 mt-14 md:mt-1 w-fit m-1 mx-auto"
                             onClick={getMsg}
                         >
                             Load more
