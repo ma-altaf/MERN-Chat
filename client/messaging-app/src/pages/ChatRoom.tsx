@@ -1,9 +1,10 @@
 import { ChangeEvent, useContext, useEffect, useRef, useState } from "react";
-import { useParams } from "react-router-dom";
+import { Link, useLocation, useParams } from "react-router-dom";
 import Message, { messageType, MsgContentType } from "../components/Message";
 import { authcontext } from "../context/AuthContext";
 import { socketContext } from "../context/SocketContext";
-import { IoAttach } from "react-icons/io5";
+import { IoAttach, IoArrowBack } from "react-icons/io5";
+import defaultPPImg from "../assets/defaultPP.jpg";
 
 const NUM_MSG = 3;
 
@@ -17,6 +18,8 @@ function ChatRoom() {
     const [isLastMessage, setIsLastMessage] = useState(false);
     const messageListRef = useRef<HTMLDivElement>(null);
     const [isAttachPanelVisible, setIsAttachPanelVisible] = useState(false);
+    // @ts-ignore
+    const { avatarURL, username } = useLocation()?.state;
 
     useEffect(() => {
         const getPrevMsg = async (messageRes: messageType[]) => {
@@ -97,7 +100,20 @@ function ChatRoom() {
 
     return (
         <div className="w-full h-screen grid grid-cols-1 md:grid-cols-3">
-            <div className="h-full w-full bg-green-200 hidden md:block"></div>
+            <div className="md:h-full w-full bg-green-200 z-50 top-0 absolute md:relative flex md:flex-col items-center py-1 md:py-10">
+                <Link
+                    to={"/home"}
+                    className="md:absolute top-0 p-1 left-0 text-xl md:text-3xl"
+                >
+                    <IoArrowBack />
+                </Link>
+                <img
+                    className="aspect-square w-10 md:w-[50%] rounded-full object-cover"
+                    src={avatarURL || defaultPPImg}
+                    alt={username}
+                />
+                <p className="text-xl mx-2 md:text-3xl md:my-4">{username}</p>
+            </div>
             <div className="h-screen w-full col-span-2 bg-gray-100 flex flex-col justify-end">
                 <div
                     className="w-full max-h-full flex flex-col overflow-y-auto px-4 relative"

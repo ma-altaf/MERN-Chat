@@ -1,5 +1,3 @@
-import { useContext } from "react";
-import { authcontext } from "../context/AuthContext";
 import { Room } from "../pages/Home";
 import defaultPPImg from "../assets/defaultPP.jpg";
 import { useNavigate } from "react-router-dom";
@@ -10,13 +8,16 @@ type Props = {
 
 function RoomCard({ room }: Props) {
     const navigate = useNavigate();
-    const [user] = useContext(authcontext);
     const { roomID, username, avatarURL } = room;
 
     return (
         <div
             className="bg-white rounded-lg p-4 flex flex-col items-center shadow cursor-pointer"
-            onClick={() => navigate(`/chat_room/${roomID}`)}
+            onClick={() =>
+                navigate(`/chat_room/${roomID}`, {
+                    state: { avatarURL, username },
+                })
+            }
         >
             <img
                 className="w-32 rounded-full aspect-square object-cover"
