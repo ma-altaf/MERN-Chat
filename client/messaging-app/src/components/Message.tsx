@@ -65,7 +65,13 @@ function MsgContent({ type, content }: ContentProp) {
                 <video src={content} controls className="rounded-lg"></video>
             );
         case "audio":
-            return <audio controls src={content}></audio>;
+            return (
+                <audio
+                    controls
+                    src={content}
+                    className="bg-[#f1f3f4] rounded-lg"
+                ></audio>
+            );
     }
     return <p>{content}</p>;
 }

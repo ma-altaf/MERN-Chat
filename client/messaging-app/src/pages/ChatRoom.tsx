@@ -3,7 +3,13 @@ import { Link, useLocation, useParams } from "react-router-dom";
 import Message, { messageType, MsgContentType } from "../components/Message";
 import { authcontext } from "../context/AuthContext";
 import { socketContext } from "../context/SocketContext";
-import { IoAttach, IoArrowBack } from "react-icons/io5";
+import {
+    IoAttach,
+    IoImage,
+    IoArrowBack,
+    IoVideocam,
+    IoMusicalNotes,
+} from "react-icons/io5";
 import defaultPPImg from "../assets/defaultPP.jpg";
 
 const NUM_MSG = 10;
@@ -108,7 +114,7 @@ function ChatRoom() {
             <div className="md:h-full w-full bg-black text-white z-50 top-0 absolute md:relative flex md:flex-col items-center py-2 md:py-10">
                 <Link
                     to={"/home"}
-                    className="md:absolute top-0 p-1 left-0 text-xl md:text-3xl"
+                    className="md:absolute top-0 p-1 m-1 left-0 text-xl md:text-3xl"
                 >
                     <IoArrowBack />
                 </Link>
@@ -121,12 +127,12 @@ function ChatRoom() {
             </div>
             <div className="h-screen w-full col-span-2 bg-gray-100 flex flex-col justify-end">
                 <div
-                    className="w-full max-h-full flex flex-col overflow-y-auto px-4 relative"
+                    className="w-full max-h-full flex flex-col overflow-y-auto px-4 relative scroll-smooth"
                     ref={messageListRef}
                 >
                     {!isLastMessage && (
                         <button
-                            className="bg-gray-300 rounded-lg px-2 mt-14 md:mt-1 w-fit m-1 mx-auto"
+                            className="bg-gray-300 rounded-lg px-2 mt-16 md:mt-1 w-fit m-1 mx-auto"
                             onClick={getMsg}
                         >
                             Load more
@@ -148,68 +154,76 @@ function ChatRoom() {
                     </button>
                 </div>
                 <span className="flex justify-between py-2 bottom-0 z-10 bg-gray-100 px-4 relative">
-                    <input
-                        autoComplete="off"
-                        className="rounded-lg shadow px-2 py-1 w-full"
-                        type="text"
-                        name="message"
-                        id="message"
-                        value={message}
-                        onChange={(e) => setMessage(e.target.value)}
-                    />
-                    {isAttachPanelVisible && (
-                        <div className="bg-gray-200 py-3 px-1 rounded-lg absolute top-0 right-0 mx-6 -translate-y-[100%]">
-                            <input
-                                type="file"
-                                className="hidden"
-                                onChange={(e) => sendFileMsg(e, "image")}
-                                id="getImgBtn"
-                                accept="image/*"
-                                multiple
-                            />
-                            <label
-                                className="uppercase aspect-square py-2 px-4 bg-gray-300 rounded-full cursor-pointer m-1"
-                                htmlFor="getImgBtn"
-                            >
-                                image
-                            </label>
-                            <input
-                                type="file"
-                                className="hidden"
-                                onChange={(e) => sendFileMsg(e, "video")}
-                                id="getVidBtn"
-                                accept="video/*"
-                                multiple
-                            />
-                            <label
-                                htmlFor="getVidBtn"
-                                className="uppercase aspect-square py-2 px-4 bg-gray-300 rounded-full cursor-pointer m-1"
-                            >
-                                video
-                            </label>
-                            <input
-                                type="file"
-                                className="hidden"
-                                onChange={(e) => sendFileMsg(e, "audio")}
-                                id="getAudioBtn"
-                                accept="audio/*"
-                                multiple
-                            />
-                            <label
-                                htmlFor="getAudioBtn"
-                                className="uppercase aspect-square py-2 px-4 bg-gray-300 rounded-full cursor-pointer m-1"
-                            >
-                                audio
-                            </label>
-                        </div>
-                    )}
+                    <span className="bg-white flex rounded-lg shadow w-full relative">
+                        <input
+                            autoComplete="off"
+                            className=" px-2 py-1 w-full rounded-lg"
+                            type="text"
+                            name="message"
+                            id="message"
+                            placeholder="Type your message"
+                            value={message}
+                            onChange={(e) => setMessage(e.target.value)}
+                        />
+                        <button
+                            className="uppercase px-2 py-1 ml-1 bg-gray-300 rounded-lg"
+                            onClick={() =>
+                                setIsAttachPanelVisible((prev) => !prev)
+                            }
+                        >
+                            <IoAttach />
+                        </button>
+                        {isAttachPanelVisible && (
+                            <div className="bg-gray-200 p-1 rounded-lg absolute top-0 right-0 w-full flex flex-wrap justify-evenly -translate-y-[110%]">
+                                <input
+                                    type="file"
+                                    className="hidden"
+                                    onChange={(e) => sendFileMsg(e, "image")}
+                                    id="getImgBtn"
+                                    accept="image/*"
+                                    multiple
+                                />
+                                <label
+                                    className="py-2 px-4 flex items-center bg-gray-300 rounded-full cursor-pointer m-1"
+                                    htmlFor="getImgBtn"
+                                >
+                                    <IoImage />
+                                    <p className="ml-3">Image</p>
+                                </label>
+                                <input
+                                    type="file"
+                                    className="hidden"
+                                    onChange={(e) => sendFileMsg(e, "video")}
+                                    id="getVidBtn"
+                                    accept="video/*"
+                                    multiple
+                                />
+                                <label
+                                    htmlFor="getVidBtn"
+                                    className="py-2 px-4 flex items-center bg-gray-300 rounded-full cursor-pointer m-1"
+                                >
+                                    <IoVideocam />
+                                    <p className="ml-3">Video</p>
+                                </label>
+                                <input
+                                    type="file"
+                                    className="hidden"
+                                    onChange={(e) => sendFileMsg(e, "audio")}
+                                    id="getAudioBtn"
+                                    accept="audio/*"
+                                    multiple
+                                />
+                                <label
+                                    htmlFor="getAudioBtn"
+                                    className="py-2 px-4 flex items-center bg-gray-300 rounded-full cursor-pointer m-1"
+                                >
+                                    <IoMusicalNotes />
+                                    <p className="ml-3">Audio</p>
+                                </label>
+                            </div>
+                        )}
+                    </span>
 
-                    <button
-                        className="uppercase px-2 py-1 ml-1 bg-gray-300 rounded-lg"
-                        onClick={() => setIsAttachPanelVisible((prev) => !prev)}
-                    >
-                        <IoAttach />
-                    </button>
                     <button
                         className="uppercase px-2 py-1 ml-1 bg-black text-white rounded-lg"
                         onClick={sendTextMsg}
