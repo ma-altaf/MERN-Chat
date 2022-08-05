@@ -100,9 +100,9 @@ router
 
     .get("/getUser", jwtAuthenticateToken, async (req, res) => {
         const { userID } = req.body;
-        const { username, avatar } = await User.findOne({ _id: userID });
+        const { username, avatar, about } = await User.findOne({ _id: userID });
 
-        res.status(200).send({ username, avatarURL: avatar?.url });
+        res.status(200).send({ username, avatarURL: avatar?.url, about });
     })
 
     .post("/changeProfilePic", jwtAuthenticateToken, async (req, res) => {

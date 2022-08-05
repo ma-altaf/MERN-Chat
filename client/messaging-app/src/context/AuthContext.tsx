@@ -5,6 +5,7 @@ import apiFetch from "../utils/apiFetch";
 export type User = {
     username: string;
     avatarURL: string;
+    about: string;
 };
 
 type AuthContextType = [User, React.Dispatch<React.SetStateAction<User>>] | [];
@@ -19,6 +20,7 @@ function AuthContext({ children }: Props) {
     const [user, setUser] = useState({
         username: "",
         avatarURL: "",
+        about: "",
     });
     const navigate = useNavigate();
 

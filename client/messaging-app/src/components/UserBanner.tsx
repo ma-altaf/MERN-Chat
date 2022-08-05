@@ -14,7 +14,8 @@ function UserBanner({ user, setUser }: Props) {
     const logOut = async () => {
         const res = await apiFetch("/users/logout");
         if (res.ok) {
-            setUser !== undefined && setUser({ username: "", avatarURL: "" });
+            setUser !== undefined &&
+                setUser({ username: "", avatarURL: "", about: "" });
             navigate("/");
         } else {
             alert("Could not log out");
@@ -30,10 +31,11 @@ function UserBanner({ user, setUser }: Props) {
                 <IoExit />
             </button>
             <EditableProfileImg />
-            <div className="w-full h-full mx-4 text-3xl">
-                <h1 className="mx-auto w-fit lg:m-0 my-2">
+            <div className="w-full h-full mx-4">
+                <h1 className="mx-auto w-fit lg:m-0 my-2 text-3xl">
                     {user?.username || ""}
                 </h1>
+                <p> {user?.about || ""}</p>
             </div>
         </div>
     );
