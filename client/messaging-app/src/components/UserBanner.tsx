@@ -31,11 +31,9 @@ function UserBanner({ user, setUser }: Props) {
             </button>
             <EditableProfileImg />
             <div className="w-full h-full mx-4 text-3xl">
-                {user?.username && (
-                    <h1 className="mx-auto w-fit lg:m-0 my-2">
-                        {user.username}
-                    </h1>
-                )}
+                <h1 className="mx-auto w-fit lg:m-0 my-2">
+                    {user?.username || ""}
+                </h1>
             </div>
         </div>
     );

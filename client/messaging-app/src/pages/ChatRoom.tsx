@@ -11,8 +11,15 @@ import {
     IoMusicalNotes,
 } from "react-icons/io5";
 import defaultPPImg from "../assets/defaultPP.jpg";
+import apiFetch from "../utils/apiFetch";
 
 const NUM_MSG = 10;
+
+type State = {
+    avatarURL: string | undefined;
+    username: string | undefined;
+    about: string | undefined;
+};
 
 function ChatRoom() {
     const isMoreMsgRequested = useRef(false);
@@ -25,10 +32,28 @@ function ChatRoom() {
     const [isLastMessage, setIsLastMessage] = useState(false);
     const messageListRef = useRef<HTMLDivElement>(null);
     const [isAttachPanelVisible, setIsAttachPanelVisible] = useState(false);
-    // @ts-ignore
-    const { avatarURL, username } = useLocation()?.state;
+    const [state, setState] = useState(useLocation()?.state as State | null);
 
     useEffect(() => {
+        // request for user data incase state is empty
+        const requestUserData = async () => {
+            try {
+                const userReq = await apiFetch("/user/contactDetail", "POST", {
+                    roomID,
+                });
+
+                if (userReq.ok) {
+                    setState(await userReq.json());
+                }
+            } catch (error) {
+                console.log(error);
+            }
+        };
+
+        if (state === null) {
+            requestUserData();
+        }
+
         const getPrevMsg = (messageRes: messageType[]) => {
             messageRes.reverse();
             setMessages((prev) => [...messageRes, ...prev]);
@@ -120,10 +145,13 @@ function ChatRoom() {
                 </Link>
                 <img
                     className="aspect-square w-10 md:w-[50%] rounded-full object-cover"
-                    src={avatarURL || defaultPPImg}
-                    alt={username}
+                    src={state?.avatarURL || defaultPPImg}
+                    alt={state?.username}
                 />
-                <p className="text-xl mx-2 md:text-3xl md:my-4">{username}</p>
+                <p className="text-xl mx-2 md:text-3xl md:my-4">
+                    {state?.username}
+                </p>
+                <p className="p-4 hidden md:block">{state?.about}</p>
             </div>
             <div className="h-screen w-full col-span-2 bg-gray-100 flex flex-col justify-end">
                 <div

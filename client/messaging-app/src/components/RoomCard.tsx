@@ -8,14 +8,14 @@ type Props = {
 
 function RoomCard({ room }: Props) {
     const navigate = useNavigate();
-    const { roomID, username, avatarURL } = room;
+    const { roomID, username, avatarURL, about } = room;
 
     return (
         <div
             className="bg-white rounded-lg p-4 flex flex-col items-center shadow cursor-pointer"
             onClick={() =>
                 navigate(`/chat_room/${roomID}`, {
-                    state: { avatarURL, username },
+                    state: { avatarURL, username, about },
                 })
             }
         >
@@ -24,8 +24,9 @@ function RoomCard({ room }: Props) {
                 src={avatarURL || defaultPPImg}
                 alt={username}
             />
-            <div className="p-1 h-full flex items-center">
-                <h1>{username}</h1>
+            <div className="p-1 h-full flex flex-col items-center">
+                <h1 className="font-semibold text-lg">{username}</h1>
+                <p>{about}</p>
             </div>
         </div>
     );

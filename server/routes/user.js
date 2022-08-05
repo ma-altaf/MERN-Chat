@@ -46,7 +46,7 @@ router
 
         const rooms = await Room.find({ members: { $all: userID } })
             .select("_id members")
-            .populate("members", "avatar.url username")
+            .populate("members", "avatar.url username about")
             .sort({ updatedAt: -1 });
 
         res.send(
@@ -61,9 +61,25 @@ router
                     roomID: _id,
                     username: contactDetail.username,
                     avatarURL: contactDetail.avatar.url,
+                    about: contactDetail.about,
                 };
             })
         );
+    })
+    .post("/contactDetail", async (req, res) => {
+        const { userID, roomID } = req.body;
+
+        const { members } = await Room.findById(roomID).populate(
+            "members",
+            "avatar.url username about"
+        );
+        const contactDetail = members.find((member) => member._id != userID);
+
+        res.status(200).send({
+            username: contactDetail.username,
+            avatarURL: contactDetail.avatar.url,
+            about: contactDetail.about,
+        });
     });
 
 module.exports = router;

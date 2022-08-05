@@ -10,6 +10,7 @@ export type Room = {
     roomID: string;
     username: string;
     avatarURL: string;
+    about: string;
 };
 
 function Home() {

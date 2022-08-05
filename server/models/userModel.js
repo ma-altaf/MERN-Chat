@@ -22,8 +22,12 @@ const userSchema = new mongoose.Schema({
         required: [true, "password is required"],
     },
     avatar: {
-        public_id: { type: String, required: true },
-        url: { type: String, required: true },
+        public_id: { type: String, default: "" },
+        url: { type: String, default: "" },
+    },
+    about: {
+        type: String,
+        default: "",
     },
 });
 
