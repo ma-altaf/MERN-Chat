@@ -27,7 +27,7 @@ const userSchema = new mongoose.Schema({
     },
     about: {
         type: String,
-        default: "",
+        default: "Hi, there 👋",
     },
 });
 
