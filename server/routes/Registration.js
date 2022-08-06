@@ -50,6 +50,7 @@ router
                 return res.status(200).send({
                     username,
                     avatarURL: newUser.avatar?.url,
+                    about: newUser.about,
                 });
             } catch (error) {
                 return res
@@ -92,6 +93,7 @@ router
             return res.status(200).send({
                 username: dbUser.username,
                 avatarURL: dbUser.avatar?.url,
+                about: dbUser.about,
             });
         } catch (error) {
             return res.status(400).send({ error: "could not create id" });
@@ -129,6 +131,28 @@ router
             res.status(200).end();
         } catch (error) {
             console.log("error:", error);
+        }
+    })
+
+    .post("/changeUsername", jwtAuthenticateToken, async (req, res) => {
+        const { userID, newUsername } = req.body;
+
+        try {
+            await User.findByIdAndUpdate(userID, { username: newUsername });
+            res.status(200).end();
+        } catch (error) {
+            res.status(400).send({ error });
+        }
+    })
+
+    .post("/changeAbout", jwtAuthenticateToken, async (req, res) => {
+        const { userID, newAbout } = req.body;
+
+        try {
+            await User.findByIdAndUpdate(userID, { about: newAbout });
+            res.status(200).end();
+        } catch (error) {
+            res.status(400).send({ error });
         }
     })
 
