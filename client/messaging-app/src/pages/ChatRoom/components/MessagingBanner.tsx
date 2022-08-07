@@ -60,7 +60,7 @@ function MessagingBanner({ roomID, socket, setMessages }: Props) {
     };
 
     return (
-        <span className="flex justify-between py-2 bottom-0 z-10 bg-gray-100 px-4 relative">
+        <span className="flex justify-between bottom-0 z-10 bg-gray-100 p-2 relative">
             <span className="bg-white flex rounded-lg shadow w-full relative">
                 <input
                     autoComplete="off"
@@ -79,7 +79,7 @@ function MessagingBanner({ roomID, socket, setMessages }: Props) {
                     <IoAttach />
                 </button>
                 {isAttachPanelVisible && (
-                    <div className="bg-gray-200 p-1 rounded-lg absolute top-0 right-0 w-full flex flex-wrap justify-evenly -translate-y-[110%]">
+                    <div className="bg-gray-200 p-1 rounded-lg absolute top-0 right-0 w-fit flex flex-col flex-wrap justify-evenly -translate-y-[100%]">
                         <input
                             type="file"
                             className="hidden"
