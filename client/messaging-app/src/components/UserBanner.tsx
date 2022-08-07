@@ -54,7 +54,7 @@ function UserBanner({ user, setUser }: Props) {
                     {user?.username || ""}
                 </h1>
                 <p
-                    className="cursor-pointer"
+                    className="cursor-pointer w-fit"
                     title="Click to edit Name/About."
                     onClick={() => setIsEditProfile(true)}
                 >
