@@ -1,25 +1,12 @@
 import { ChangeEvent, useContext, useEffect, useRef, useState } from "react";
-import { Link, useLocation, useParams } from "react-router-dom";
-import Message, { messageType, MsgContentType } from "../components/Message";
-import { authcontext } from "../context/AuthContext";
-import { socketContext } from "../context/SocketContext";
-import {
-    IoAttach,
-    IoImage,
-    IoArrowBack,
-    IoVideocam,
-    IoMusicalNotes,
-} from "react-icons/io5";
-import defaultPPImg from "../assets/defaultPP.jpg";
-import apiFetch from "../utils/apiFetch";
+import { useParams } from "react-router-dom";
+import Message, { messageType, MsgContentType } from "./components/Message";
+import { authcontext } from "../../context/AuthContext";
+import { socketContext } from "../../context/SocketContext";
+import { IoAttach, IoImage, IoVideocam, IoMusicalNotes } from "react-icons/io5";
+import ChatRoomInfoPanel from "./components/ChatRoomInfoPanel";
 
 const NUM_MSG = 10;
-
-type State = {
-    avatarURL: string | undefined;
-    username: string | undefined;
-    about: string | undefined;
-};
 
 function ChatRoom() {
     const isMoreMsgRequested = useRef(false);
@@ -32,28 +19,8 @@ function ChatRoom() {
     const [isLastMessage, setIsLastMessage] = useState(false);
     const messageListRef = useRef<HTMLDivElement>(null);
     const [isAttachPanelVisible, setIsAttachPanelVisible] = useState(false);
-    const [state, setState] = useState(useLocation()?.state as State | null);
 
     useEffect(() => {
-        // request for user data incase state is empty
-        const requestUserData = async () => {
-            try {
-                const userReq = await apiFetch("/user/contactDetail", "POST", {
-                    roomID,
-                });
-
-                if (userReq.ok) {
-                    setState(await userReq.json());
-                }
-            } catch (error) {
-                console.log(error);
-            }
-        };
-
-        if (state === null) {
-            requestUserData();
-        }
-
         const getPrevMsg = (messageRes: messageType[]) => {
             messageRes.reverse();
             setMessages((prev) => [...messageRes, ...prev]);
@@ -136,23 +103,7 @@ function ChatRoom() {
 
     return (
         <div className="w-full h-screen grid grid-cols-1 md:grid-cols-3">
-            <div className="md:h-full w-full bg-black text-white z-50 top-0 absolute md:relative flex md:flex-col items-center py-2 md:py-10">
-                <Link
-                    to={"/home"}
-                    className="md:absolute top-0 p-1 m-1 left-0 text-xl md:text-3xl"
-                >
-                    <IoArrowBack />
-                </Link>
-                <img
-                    className="aspect-square w-10 md:w-[50%] rounded-full object-cover"
-                    src={state?.avatarURL || defaultPPImg}
-                    alt={state?.username}
-                />
-                <p className="text-xl mx-2 md:text-3xl md:my-4">
-                    {state?.username}
-                </p>
-                <p className="p-4 hidden md:block">{state?.about}</p>
-            </div>
+            <ChatRoomInfoPanel roomID={roomID} />
             <div className="h-screen w-full col-span-2 bg-gray-100 flex flex-col justify-end">
                 <div
                     className="w-full max-h-full flex flex-col overflow-y-auto px-4 relative scroll-smooth"

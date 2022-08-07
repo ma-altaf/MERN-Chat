@@ -1,10 +1,10 @@
 import { useContext, useEffect, useState } from "react";
-import RequestCmpt from "../components/RequestCmpt";
-import RoomList from "../components/RoomList";
-import UserBanner from "../components/UserBanner";
-import { authcontext, User } from "../context/AuthContext";
-import { socketContext } from "../context/SocketContext";
-import apiFetch from "../utils/apiFetch";
+import RequestCmpt from "./components/RequestCmpt";
+import RoomList from "./components/RoomList";
+import UserBanner from "./components/UserBanner";
+import { authcontext, User } from "../../context/AuthContext";
+import { socketContext } from "../../context/SocketContext";
+import apiFetch from "../../utils/apiFetch";
 
 export type Room = {
     roomID: string;

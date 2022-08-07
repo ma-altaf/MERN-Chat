@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { IoClose } from "react-icons/io5";
 import { useNavigate } from "react-router-dom";
-import apiFetch from "../utils/apiFetch";
+import apiFetch from "../../../utils/apiFetch";
 
 function RequestCmpt() {
     const [isRequesting, setIsRequesting] = useState(false);

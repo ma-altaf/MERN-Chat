@@ -1,4 +1,4 @@
-import { Room } from "../pages/Home";
+import { Room } from "..";
 import RoomCard from "./RoomCard";
 
 type Props = {

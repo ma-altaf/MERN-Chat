@@ -1,5 +1,5 @@
-import { Room } from "../pages/Home";
-import defaultPPImg from "../assets/defaultPP.jpg";
+import { Room } from "..";
+import defaultPPImg from "../../../assets/defaultPP.jpg";
 import { useNavigate } from "react-router-dom";
 
 type Props = {

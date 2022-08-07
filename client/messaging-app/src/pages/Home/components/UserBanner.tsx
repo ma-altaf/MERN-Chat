@@ -1,9 +1,9 @@
-import { User } from "../context/AuthContext";
+import { User } from "../../../context/AuthContext";
 import { IoExit, IoCreateOutline, IoClose } from "react-icons/io5";
 import EditableProfileImg from "./EditableProfileImg";
-import apiFetch from "../utils/apiFetch";
+import apiFetch from "../../../utils/apiFetch";
 import { useNavigate } from "react-router-dom";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import EditProfile from "./EditProfile";
 
 type Props = {

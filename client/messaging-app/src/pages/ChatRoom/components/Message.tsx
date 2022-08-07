@@ -1,5 +1,5 @@
 import { useContext } from "react";
-import { authcontext } from "../context/AuthContext";
+import { authcontext } from "../../../context/AuthContext";
 
 export type MsgContentType = "text" | "image" | "video" | "audio";
 

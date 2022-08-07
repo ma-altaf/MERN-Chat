@@ -1,7 +1,7 @@
-import defaultPPImg from "../assets/defaultPP.jpg";
+import defaultPPImg from "../../../assets/defaultPP.jpg";
 import { ChangeEvent, useContext, useState } from "react";
-import { authcontext, User } from "../context/AuthContext";
-import apiFetch from "../utils/apiFetch";
+import { authcontext, User } from "../../../context/AuthContext";
+import apiFetch from "../../../utils/apiFetch";
 
 function EditableProfileImg() {
     const [user, setUser] = useContext(authcontext);

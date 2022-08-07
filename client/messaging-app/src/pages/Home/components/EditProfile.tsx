@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
-import { User } from "../context/AuthContext";
-import apiFetch from "../utils/apiFetch";
+import { User } from "../../../context/AuthContext";
+import apiFetch from "../../../utils/apiFetch";
 
 type Props = {
     user: User | undefined;
