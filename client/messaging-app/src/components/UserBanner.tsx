@@ -37,10 +37,13 @@ function UserBanner({ user, setUser }: Props) {
                 />
             )}
             <span className="absolute top-0 right-0 m-1 p-1 text-2xl">
-                <button onClick={() => setIsEditProfile(true)}>
+                <button
+                    onClick={() => setIsEditProfile(true)}
+                    title="Click to edit Name/About"
+                >
                     <IoCreateOutline />
                 </button>
-                <button onClick={logOut}>
+                <button onClick={logOut} title="Click to log out">
                     <IoExit />
                 </button>
             </span>
@@ -48,14 +51,14 @@ function UserBanner({ user, setUser }: Props) {
             <div className="w-full h-full mx-4">
                 <h1
                     className="mx-auto w-fit lg:m-0 my-2 text-3xl cursor-pointer"
-                    title="Click to edit Name/About."
+                    title="Click to edit Name/About"
                     onClick={() => setIsEditProfile(true)}
                 >
                     {user?.username || ""}
                 </h1>
                 <p
                     className="cursor-pointer w-fit"
-                    title="Click to edit Name/About."
+                    title="Click to edit Name/About"
                     onClick={() => setIsEditProfile(true)}
                 >
                     {user?.about || ""}
