@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { User } from "../../../context/AuthContext";
 import apiFetch from "../../../utils/apiFetch";
+import EditableProfileImg from "./EditableProfileImg";
 
 type Props = {
     user: User | undefined;
@@ -55,10 +56,11 @@ function EditProfile({ user, setUser, setIsEditProfile }: Props) {
             onClick={() => setIsEditProfile(false)}
         >
             <div
-                className="flex flex-col justify-center items-start rounded-lg max-w-[90%] md:max-w-1/2 h-fit bg-white p-4"
+                className="flex flex-col justify-center items-start rounded-lg max-w-[90%] md:max-w-1/2 h-fit max-h-[90%] overflow-y-auto bg-white p-1 md:p-3"
                 onClick={(e) => e.stopPropagation()}
             >
-                <span className="p-1">
+                <EditableProfileImg />
+                <span className="p-1 mt-4">
                     <label htmlFor="newUsername">Name:</label>
                     <input
                         type="text"
@@ -82,7 +84,7 @@ function EditProfile({ user, setUser, setIsEditProfile }: Props) {
                         name="newAbout"
                         id="newAbout"
                         cols={80}
-                        rows={10}
+                        rows={8}
                         onChange={(e) => setNewAbout(e.target.value)}
                         value={newAbout}
                     />

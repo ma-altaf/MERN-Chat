@@ -48,7 +48,7 @@ function EditableProfileImg() {
             <label
                 htmlFor="uploadProfilePic"
                 title="Click to change profile picture"
-                className="relative overflow-hidden rounded-full"
+                className="relative rounded-full overflow-hidden mx-auto"
             >
                 {isUploadingImg && (
                     <div className="bg-black w-full h-full absolute text-white flex justify-center items-center uppercase">
@@ -57,7 +57,7 @@ function EditableProfileImg() {
                 )}
 
                 <img
-                    className="w-52 rounded-full aspect-square object-cover cursor-pointer"
+                    className="w-40 rounded-full aspect-square object-cover cursor-pointer"
                     src={user?.avatarURL || defaultPPImg}
                     alt="current user"
                     onLoad={() => setIsUploadingImg(false)}

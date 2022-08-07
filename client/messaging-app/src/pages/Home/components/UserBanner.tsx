@@ -1,10 +1,10 @@
 import { User } from "../../../context/AuthContext";
-import { IoExit, IoCreateOutline, IoClose } from "react-icons/io5";
-import EditableProfileImg from "./EditableProfileImg";
+import { IoExit, IoCreateOutline } from "react-icons/io5";
 import apiFetch from "../../../utils/apiFetch";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 import EditProfile from "./EditProfile";
+import defaultPPImg from "../../../assets/defaultPP.jpg";
 
 type Props = {
     user: User | undefined;
@@ -39,7 +39,7 @@ function UserBanner({ user, setUser }: Props) {
             <span className="absolute top-0 right-0 m-1 p-1 text-2xl">
                 <button
                     onClick={() => setIsEditProfile(true)}
-                    title="Click to edit Name/About"
+                    title="Click to edit profile"
                 >
                     <IoCreateOutline />
                 </button>
@@ -47,18 +47,24 @@ function UserBanner({ user, setUser }: Props) {
                     <IoExit />
                 </button>
             </span>
-            <EditableProfileImg />
+            <img
+                className="w-48 rounded-full aspect-square object-cover cursor-pointer"
+                src={user?.avatarURL || defaultPPImg}
+                alt="current user"
+                title="Click to edit profile"
+                onClick={() => setIsEditProfile(true)}
+            />
             <div className="w-full h-full mx-4">
                 <h1
                     className="mx-auto w-fit lg:m-0 my-2 text-3xl cursor-pointer"
-                    title="Click to edit Name/About"
+                    title="Click to edit profile"
                     onClick={() => setIsEditProfile(true)}
                 >
                     {user?.username || ""}
                 </h1>
                 <p
                     className="cursor-pointer w-fit"
-                    title="Click to edit Name/About"
+                    title="Click to edit profile"
                     onClick={() => setIsEditProfile(true)}
                 >
                     {user?.about || ""}
