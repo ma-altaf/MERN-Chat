@@ -46,10 +46,20 @@ function UserBanner({ user, setUser }: Props) {
             </span>
             <EditableProfileImg />
             <div className="w-full h-full mx-4">
-                <h1 className="mx-auto w-fit lg:m-0 my-2 text-3xl">
+                <h1
+                    className="mx-auto w-fit lg:m-0 my-2 text-3xl cursor-pointer"
+                    title="Click to edit Name/About."
+                    onClick={() => setIsEditProfile(true)}
+                >
                     {user?.username || ""}
                 </h1>
-                <p> {user?.about || ""}</p>
+                <p
+                    className="cursor-pointer"
+                    title="Click to edit Name/About."
+                    onClick={() => setIsEditProfile(true)}
+                >
+                    {user?.about || ""}
+                </p>
             </div>
         </div>
     );
