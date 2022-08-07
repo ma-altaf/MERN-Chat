@@ -1,7 +1,7 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Index from "./pages/Index";
 import Error from "./pages/Error";
-import Home from "./pages/Home/index";
+import Home from "./pages/Home";
 import AuthContext from "./context/AuthContext";
 import ChatRoom from "./pages/ChatRoom";
 import SocketContext from "./context/SocketContext";
