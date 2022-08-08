@@ -110,7 +110,7 @@ function Index() {
                     commodi distinctio!
                 </p>
                 <a
-                    className="px-4 py-2 bg-white text-black rounded-lg uppercase cursor-pointer md:hidden"
+                    className="px-4 py-2 bg-emerald-400 transition-colors hover:bg-emerald-600 rounded-lg uppercase cursor-pointer md:hidden"
                     href="#formIpnut"
                 >
                     register
@@ -129,7 +129,7 @@ function Index() {
                 </a>
 
                 <form className="w-full p-6">
-                    <h1 className="mb-2 text-3xl w-full">
+                    <h1 className="mb-2 text-3xl text-emerald-400 w-full">
                         {isLogin ? "Log In" : "Create Account"}
                     </h1>
 
@@ -210,7 +210,7 @@ function Index() {
                     <input
                         type="button"
                         value="submit"
-                        className="px-4 py-2 bg-black text-white rounded-lg uppercase my-4 cursor-pointer"
+                        className="px-4 py-2 bg-emerald-400 transition-colors hover:bg-emerald-600 text-white rounded-lg uppercase my-4 cursor-pointer"
                         onClick={() => submitForm()}
                     />
                     <h5>
@@ -218,7 +218,7 @@ function Index() {
                             ? "Don't have an account? "
                             : "Already have an account? "}
                         <p
-                            className="underline inline-block cursor-pointer"
+                            className="underline inline-block cursor-pointer text-emerald-400"
                             onClick={() => {
                                 setUsername("");
                                 setEmail("");

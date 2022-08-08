@@ -28,7 +28,7 @@ function RequestCmpt() {
     };
 
     return (
-        <div className="m-4 rounded-lg overflow-hidden bg-black text-white flex justify-center items-center">
+        <div className="m-4 rounded-lg overflow-hidden bg-emerald-400 text-white flex justify-center items-center">
             {isRequesting ? (
                 <div className="p-4 flex flex-col justify-center">
                     <span className="flex items-center w-full">

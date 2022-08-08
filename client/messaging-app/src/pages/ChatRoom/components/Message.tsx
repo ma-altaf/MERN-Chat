@@ -29,7 +29,7 @@ function Message({ message }: Props) {
             <div
                 className={`p-1 m-1 rounded-lg  w-fit h-fit max-w-[90%] md:max-w-[60%] break-words overflow-hidden ${
                     sender.username === user?.username
-                        ? "bg-black text-white"
+                        ? "bg-emerald-400"
                         : "bg-gray-200"
                 }`}
             >

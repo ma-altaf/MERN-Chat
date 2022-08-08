@@ -40,10 +40,15 @@ function UserBanner({ user, setUser }: Props) {
                 <button
                     onClick={() => setIsEditProfile(true)}
                     title="Click to edit profile"
+                    className="hover:text-emerald-600 transition-colors"
                 >
                     <IoCreateOutline />
                 </button>
-                <button onClick={logOut} title="Click to log out">
+                <button
+                    onClick={logOut}
+                    title="Click to log out"
+                    className="hover:text-emerald-600 transition-colors"
+                >
                     <IoExit />
                 </button>
             </span>

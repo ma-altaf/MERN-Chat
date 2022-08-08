@@ -64,7 +64,7 @@ function MessagingBanner({ roomID, socket, setMessages }: Props) {
             <span className="bg-white flex rounded-lg shadow w-full relative">
                 <input
                     autoComplete="off"
-                    className=" px-2 py-1 w-full rounded-lg"
+                    className=" px-2 py-1 w-full rounded-lg focus:outline-emerald-400"
                     type="text"
                     name="message"
                     id="message"
@@ -73,7 +73,8 @@ function MessagingBanner({ roomID, socket, setMessages }: Props) {
                     onChange={(e) => setMessage(e.target.value)}
                 />
                 <button
-                    className="uppercase px-2 py-1 ml-1 bg-gray-300 rounded-lg"
+                    className="uppercase px-2 py-1 ml-1 text-xl bg-gray-200 hover:text-emerald-400 rounded-lg transition-colors"
+                    title="Click to send media"
                     onClick={() => setIsAttachPanelVisible((prev) => !prev)}
                 >
                     <IoAttach />
@@ -89,7 +90,7 @@ function MessagingBanner({ roomID, socket, setMessages }: Props) {
                             multiple
                         />
                         <label
-                            className="py-2 px-4 flex items-center bg-gray-300 rounded-full cursor-pointer m-1"
+                            className="py-2 px-4 flex items-center bg-gray-300 rounded-full cursor-pointer m-1 transition-colors hover:bg-emerald-400 hover:text-white"
                             htmlFor="getImgBtn"
                         >
                             <IoImage />
@@ -105,7 +106,7 @@ function MessagingBanner({ roomID, socket, setMessages }: Props) {
                         />
                         <label
                             htmlFor="getVidBtn"
-                            className="py-2 px-4 flex items-center bg-gray-300 rounded-full cursor-pointer m-1"
+                            className="py-2 px-4 flex items-center bg-gray-300 rounded-full cursor-pointer m-1 transition-colors hover:bg-emerald-400 hover:text-white"
                         >
                             <IoVideocam />
                             <p className="ml-3">Video</p>
@@ -120,7 +121,7 @@ function MessagingBanner({ roomID, socket, setMessages }: Props) {
                         />
                         <label
                             htmlFor="getAudioBtn"
-                            className="py-2 px-4 flex items-center bg-gray-300 rounded-full cursor-pointer m-1"
+                            className="py-2 px-4 flex items-center bg-gray-300 rounded-full cursor-pointer m-1 transition-colors hover:bg-emerald-400 hover:text-white"
                         >
                             <IoMusicalNotes />
                             <p className="ml-3">Audio</p>
@@ -130,7 +131,7 @@ function MessagingBanner({ roomID, socket, setMessages }: Props) {
             </span>
 
             <button
-                className="uppercase px-2 py-1 ml-1 bg-black text-white rounded-lg"
+                className="uppercase px-2 py-1 ml-1 bg-emerald-400 transition-colors hover:bg-emerald-600 text-white rounded-lg"
                 onClick={sendTextMsg}
             >
                 send

@@ -60,7 +60,7 @@ function EditProfile({ user, setUser, setIsEditProfile }: Props) {
                 onClick={(e) => e.stopPropagation()}
             >
                 <EditableProfileImg />
-                <span className="p-1 mt-4">
+                <span className="p-1">
                     <label htmlFor="newUsername">Name:</label>
                     <input
                         type="text"
@@ -68,10 +68,10 @@ function EditProfile({ user, setUser, setIsEditProfile }: Props) {
                         id="newUsername"
                         value={newUsername}
                         onChange={(e) => setNewUsername(e.target.value)}
-                        className="border-2 rounded-lg p-1 mx-1 focus:border-black"
+                        className="border-2 rounded-lg p-1 mx-1 focus:outline-emerald-400"
                     />
                     <button
-                        className="bg-black rounded-lg text-white px-2 py-1 my-1"
+                        className="bg-emerald-400 transition-colors hover:bg-emerald-600 rounded-lg text-white px-2 py-1 my-1"
                         onClick={changeName}
                     >
                         Rename
@@ -80,7 +80,7 @@ function EditProfile({ user, setUser, setIsEditProfile }: Props) {
                 <span className="p-1 flex flex-col">
                     <label htmlFor="newAbout">About:</label>
                     <textarea
-                        className="border-2 rounded-lg p-2 my-1 focus:border-black w-full"
+                        className="border-2 rounded-lg p-2 my-1 focus:outline-emerald-400 w-full"
                         name="newAbout"
                         id="newAbout"
                         cols={80}
@@ -89,13 +89,13 @@ function EditProfile({ user, setUser, setIsEditProfile }: Props) {
                         value={newAbout}
                     />
                     <button
-                        className="bg-black rounded-lg text-white px-2 py-1"
+                        className="bg-emerald-400 transition-colors hover:bg-emerald-600 rounded-lg text-white px-2 py-1"
                         onClick={changeAbout}
                     >
                         Change About
                     </button>
                     <button
-                        className="border-black border-2 rounded-lg mt-1"
+                        className="bg-gray-200 px-2 py-1 rounded-lg mt-1"
                         onClick={() => setIsEditProfile(false)}
                     >
                         Close
