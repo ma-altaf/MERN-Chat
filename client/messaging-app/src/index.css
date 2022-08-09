@@ -6,4 +6,5 @@ html,
 body {
     scroll-behavior: smooth;
     background-color: rgb(243 244 246);
+    box-sizing: border-box;
 }
