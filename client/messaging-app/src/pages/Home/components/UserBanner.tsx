@@ -28,7 +28,7 @@ function UserBanner({ user, setUser }: Props) {
     };
 
     return (
-        <div className="w-full lg:w-1/2 rounded-lg p-8 shadow bg-white flex justify-center items-center flex-col lg:flex-row relative">
+        <div className="w-full lg:w-1/2 rounded-lg p-8 shadow bg-white dark:bg-gray-800 flex justify-center items-center flex-col lg:flex-row relative">
             {isEditProfile && (
                 <EditProfile
                     user={user}

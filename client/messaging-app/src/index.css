@@ -4,7 +4,16 @@
 
 html,
 body {
+    width: 100vw;
+    height: 100vh;
     scroll-behavior: smooth;
     background-color: rgb(243 244 246);
     box-sizing: border-box;
+}
+
+@media (prefers-color-scheme: dark) {
+    body {
+        background-color: rgb(17 24 39);
+        color: white;
+    }
 }

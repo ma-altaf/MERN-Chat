@@ -89,7 +89,7 @@ function Index() {
     };
 
     return (
-        <div className="grid grid-cols-1 lg:grid-cols-3 h-screen w-screen ">
+        <div className="grid grid-cols-1 lg:grid-cols-3 h-screen w-screen">
             {user!.username && <Navigate to={"/home"} />}
             {/* description */}
             <div
@@ -119,7 +119,7 @@ function Index() {
             {/* login form */}
             <div
                 id="formIpnut"
-                className="min-h-screen w-full p-4 flex-col justify-center items-center flex relative bg-white"
+                className="min-h-screen w-full p-4 flex-col justify-center items-center flex relative bg-white dark:bg-gray-900"
             >
                 <a
                     className="px-4 py-2 uppercase cursor-pointer absolute top-0 m-4 left-0 block  md:hidden text-gray-500"
@@ -146,7 +146,7 @@ function Index() {
                                 Name:
                             </label>
                             <input
-                                className="w-full outline-none border-b-2 focus:border-black transition-all"
+                                className="w-full outline-none border-b-2 focus:border-black dark:focus:border-emerald-400 transition-all bg-transparent"
                                 type="text"
                                 name="username"
                                 id="username"
@@ -162,7 +162,7 @@ function Index() {
                             Email:
                         </label>
                         <input
-                            className="w-full outline-none border-b-2 focus:border-black transition-all"
+                            className="w-full outline-none border-b-2 focus:border-black dark:focus:border-emerald-400 transition-all bg-transparent"
                             type="email"
                             name="email"
                             id="email"
@@ -177,7 +177,7 @@ function Index() {
                             Password:
                         </label>
                         <input
-                            className="w-full outline-none border-b-2 focus:border-black transition-all"
+                            className="w-full outline-none border-b-2 focus:border-black dark:focus:border-emerald-400 transition-all bg-transparent"
                             type="password"
                             name="password"
                             id="password"
@@ -195,7 +195,7 @@ function Index() {
                                 Confirm Password:
                             </label>
                             <input
-                                className="w-full outline-none border-b-2 focus:border-black transition-all"
+                                className="w-full outline-none border-b-2 focus:border-black dark:focus:border-emerald-400 transition-all bg-transparent"
                                 type="password"
                                 name="password"
                                 id="confirm_password"

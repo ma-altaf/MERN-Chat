@@ -56,14 +56,14 @@ function ChatRoom() {
     return (
         <div className="w-full h-screen grid grid-cols-1 md:grid-cols-3">
             <ChatRoomInfoPanel roomID={roomID} />
-            <div className="h-screen w-full col-span-2 bg-gray-100 flex flex-col justify-end">
+            <div className="h-screen w-full col-span-2 flex flex-col justify-end">
                 <div
                     className="w-full max-h-full flex flex-col overflow-y-auto px-4 relative scroll-smooth"
                     ref={messageListRef}
                 >
                     {!isLastMessage && (
                         <button
-                            className="bg-gray-300 rounded-lg px-2 mt-16 md:mt-1 w-fit m-1 mx-auto"
+                            className="bg-gray-300 dark:bg-gray-700 rounded-lg px-2 mt-16 md:mt-1 w-fit m-1 mx-auto"
                             onClick={getMsg}
                         >
                             Load more
@@ -74,7 +74,7 @@ function ChatRoom() {
                     ))}
                     {/* TODO: make the component only available when scroll is needed */}
                     <button
-                        className="sticky bottom-0 right-0 mr-auto my-2 py-1 px-2 bg-gray-300 rounded-lg w-fit"
+                        className="sticky bottom-0 right-0 mr-auto my-2 py-1 px-2 bg-gray-300 dark:bg-gray-700 rounded-lg w-fit"
                         onClick={() => {
                             messageListRef.current &&
                                 (messageListRef.current.scrollTop =

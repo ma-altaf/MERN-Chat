@@ -41,7 +41,7 @@ function ChatRoomInfoPanel({ roomID }: Props) {
     }, []);
 
     return (
-        <div className="md:h-full w-full bg-emerald-400 text-white z-50 top-0 absolute md:relative flex md:flex-col items-center py-2 md:py-10">
+        <div className="md:h-full w-full bg-emerald-400 dark:bg-gray-800 text-white z-50 top-0 absolute md:relative flex md:flex-col items-center py-2 md:py-10">
             <Link
                 to={"/home"}
                 className="md:absolute top-0 p-1 m-1 left-0 text-xl md:text-3xl"
