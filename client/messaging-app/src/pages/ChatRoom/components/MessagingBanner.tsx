@@ -24,11 +24,14 @@ function MessagingBanner({ roomID, socket, setMessages }: Props) {
     });
 
     const sendTextMsg = () => {
+        const FormatedMessage = message.trim();
         // do not send the message if there is no text content
-        if (message.length === 0) {
+        if (FormatedMessage.length === 0) {
+            // remove empty space
+            setMessage("");
             return;
         }
-        const newMsg = createMsg(message, "text");
+        const newMsg = createMsg(FormatedMessage, "text");
         socket?.emit("send_msg", newMsg);
 
         // clear message text input on message submission

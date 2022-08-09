@@ -116,8 +116,11 @@ mongoose
                     // filter incorrect request
                     switch (type) {
                         case "text":
-                            if (content.length === 0) return;
-                            newMsg = message;
+                            if (content.trim().length === 0) return;
+                            newMsg = {
+                                ...message,
+                                content: message.content.trim(),
+                            };
                             break;
                         case "video":
                         case "audio":
