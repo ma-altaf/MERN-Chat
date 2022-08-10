@@ -56,7 +56,7 @@ function EditProfile({ user, setUser, setIsEditProfile }: Props) {
             onClick={() => setIsEditProfile(false)}
         >
             <div
-                className="flex flex-col justify-center items-start rounded-lg max-w-[90%] md:max-w-1/2 h-fit max-h-[90%] overflow-y-auto bg-white dark:bg-gray-800 p-1 md:p-3"
+                className="flex flex-col justify-center items-start rounded-lg max-w-[90%] md:max-w-1/2 h-fit max-h-[95%] overflow-y-auto bg-white dark:bg-gray-800 p-1 md:p-3"
                 onClick={(e) => e.stopPropagation()}
             >
                 <EditableProfileImg />
@@ -68,10 +68,10 @@ function EditProfile({ user, setUser, setIsEditProfile }: Props) {
                         id="newUsername"
                         value={newUsername}
                         onChange={(e) => setNewUsername(e.target.value)}
-                        className="border-2 rounded-lg p-1 mx-1 focus:outline-emerald-400 bg-transparent"
+                        className="outline outline-2 rounded-lg p-1 mx-3 focus:outline-emerald-400 bg-transparent"
                     />
                     <button
-                        className="bg-emerald-400 transition-colors hover:bg-emerald-600 rounded-lg text-white px-2 py-1 my-1"
+                        className="bg-emerald-400 transition-colors hover:bg-emerald-600 outline outline-emerald-400 hover:outline-emerald-600 rounded-lg text-white px-2 py-1 mt-3"
                         onClick={changeName}
                     >
                         Rename
@@ -80,7 +80,7 @@ function EditProfile({ user, setUser, setIsEditProfile }: Props) {
                 <span className="p-1 flex flex-col">
                     <label htmlFor="newAbout">About:</label>
                     <textarea
-                        className="border-2 rounded-lg p-2 my-1 focus:outline-emerald-400 bg-transparent w-full"
+                        className="outline outline-2 rounded-lg p-2 mt-1 focus:outline-emerald-400 bg-transparent w-full"
                         name="newAbout"
                         id="newAbout"
                         cols={80}
@@ -89,13 +89,13 @@ function EditProfile({ user, setUser, setIsEditProfile }: Props) {
                         value={newAbout}
                     />
                     <button
-                        className="bg-emerald-400 transition-colors hover:bg-emerald-600 rounded-lg text-white px-2 py-1"
+                        className="bg-emerald-400 transition-colors hover:bg-emerald-600 rounded-lg text-white px-2 py-1 mt-3 outline outline-emerald-400 hover:outline-emerald-600"
                         onClick={changeAbout}
                     >
                         Change About
                     </button>
                     <button
-                        className="bg-gray-200 px-2 py-1 rounded-lg mt-1 dark:bg-gray-900"
+                        className="bg-gray-200 px-2 py-1 rounded-lg mt-3 dark:bg-gray-900 outline outline-gray-200 dark:outline-gray-900"
                         onClick={() => setIsEditProfile(false)}
                     >
                         Close
