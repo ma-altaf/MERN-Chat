@@ -12,7 +12,7 @@ function RoomCard({ room }: Props) {
 
     return (
         <div
-            className="bg-white dark:bg-gray-800 rounded-lg p-4 flex flex-col items-center shadow cursor-pointer"
+            className="bg-primary-light-white dark:bg-primary-dark-gray rounded-lg p-4 flex flex-col items-center shadow cursor-pointer"
             onClick={() =>
                 navigate(`/chat_room/${roomID}`, {
                     state: { avatarURL, username, about },

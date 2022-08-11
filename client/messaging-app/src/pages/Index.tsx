@@ -110,7 +110,7 @@ function Index() {
                     commodi distinctio!
                 </p>
                 <a
-                    className="px-4 py-2 bg-emerald-400 transition-colors hover:bg-emerald-600 rounded-lg uppercase cursor-pointer md:hidden"
+                    className="px-4 py-2 bg-accent-base transition-colors hover:bg-accent-deep rounded-lg uppercase cursor-pointer md:hidden"
                     href="#formIpnut"
                 >
                     register
@@ -119,7 +119,7 @@ function Index() {
             {/* login form */}
             <div
                 id="formIpnut"
-                className="min-h-screen w-full p-4 flex-col justify-center items-center flex relative bg-white dark:bg-gray-900"
+                className="min-h-screen w-full p-4 flex-col justify-center items-center flex relative bg-primary-light-white dark:bg-primary-dark-deepGray"
             >
                 <a
                     className="px-4 py-2 uppercase cursor-pointer absolute top-0 m-4 left-0 block  md:hidden text-gray-500"
@@ -129,7 +129,7 @@ function Index() {
                 </a>
 
                 <form className="w-full p-6">
-                    <h1 className="mb-2 text-3xl text-emerald-400 w-full">
+                    <h1 className="mb-2 text-3xl text-accent-base w-full">
                         {isLogin ? "Log In" : "Create Account"}
                     </h1>
 
@@ -146,7 +146,7 @@ function Index() {
                                 Name:
                             </label>
                             <input
-                                className="w-full outline-none border-b-2 focus:border-black dark:focus:border-emerald-400 transition-all bg-transparent"
+                                className="w-full outline-none border-b-2 focus:border-black dark:focus:border-accent-base transition-all bg-transparent"
                                 type="text"
                                 name="username"
                                 id="username"
@@ -162,7 +162,7 @@ function Index() {
                             Email:
                         </label>
                         <input
-                            className="w-full outline-none border-b-2 focus:border-black dark:focus:border-emerald-400 transition-all bg-transparent"
+                            className="w-full outline-none border-b-2 focus:border-black dark:focus:border-accent-base transition-all bg-transparent"
                             type="email"
                             name="email"
                             id="email"
@@ -177,7 +177,7 @@ function Index() {
                             Password:
                         </label>
                         <input
-                            className="w-full outline-none border-b-2 focus:border-black dark:focus:border-emerald-400 transition-all bg-transparent"
+                            className="w-full outline-none border-b-2 focus:border-black dark:focus:border-accent-base transition-all bg-transparent"
                             type="password"
                             name="password"
                             id="password"
@@ -195,7 +195,7 @@ function Index() {
                                 Confirm Password:
                             </label>
                             <input
-                                className="w-full outline-none border-b-2 focus:border-black dark:focus:border-emerald-400 transition-all bg-transparent"
+                                className="w-full outline-none border-b-2 focus:border-black dark:focus:border-accent-base transition-all bg-transparent"
                                 type="password"
                                 name="password"
                                 id="confirm_password"
@@ -210,7 +210,7 @@ function Index() {
                     <input
                         type="button"
                         value="submit"
-                        className="px-4 py-2 bg-emerald-400 transition-colors hover:bg-emerald-600 text-white rounded-lg uppercase my-4 cursor-pointer"
+                        className="px-4 py-2 bg-accent-base transition-colors hover:bg-accent-deep text-white rounded-lg uppercase my-4 cursor-pointer"
                         onClick={() => submitForm()}
                     />
                     <h5>
@@ -218,7 +218,7 @@ function Index() {
                             ? "Don't have an account? "
                             : "Already have an account? "}
                         <p
-                            className="underline inline-block cursor-pointer text-emerald-400"
+                            className="underline inline-block cursor-pointer text-accent-base"
                             onClick={() => {
                                 setUsername("");
                                 setEmail("");

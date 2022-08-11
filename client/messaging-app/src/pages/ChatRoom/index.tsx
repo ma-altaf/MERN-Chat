@@ -63,7 +63,7 @@ function ChatRoom() {
                 >
                     {!isLastMessage && (
                         <button
-                            className="bg-gray-300 dark:bg-gray-700 rounded-lg px-2 mt-16 md:mt-1 w-fit m-1 mx-auto"
+                            className="bg-primary-light-deepGray dark:bg-primary-dark-lightGray rounded-lg px-2 mt-16 md:mt-1 w-fit m-1 mx-auto"
                             onClick={getMsg}
                         >
                             Load more
@@ -74,7 +74,7 @@ function ChatRoom() {
                     ))}
                     {/* TODO: make the component only available when scroll is needed */}
                     <button
-                        className="sticky bottom-0 right-0 mr-auto my-2 py-1 px-2 bg-gray-300 dark:bg-gray-700 rounded-lg w-fit"
+                        className="sticky bottom-0 right-0 mr-auto my-2 py-1 px-2 bg-primary-light-deepGray dark:bg-primary-dark-lightGray rounded-lg w-fit"
                         onClick={() => {
                             messageListRef.current &&
                                 (messageListRef.current.scrollTop =

@@ -51,7 +51,7 @@ function EditableProfileImg() {
                 className="relative rounded-full overflow-hidden mx-auto"
             >
                 {isUploadingImg && (
-                    <div className="bg-emerald-400 w-full h-full absolute text-white flex justify-center items-center uppercase">
+                    <div className="bg-accent-base w-full h-full absolute text-white flex justify-center items-center uppercase">
                         changing
                     </div>
                 )}

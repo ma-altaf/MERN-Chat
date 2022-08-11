@@ -28,7 +28,7 @@ function UserBanner({ user, setUser }: Props) {
     };
 
     return (
-        <div className="w-full lg:w-1/2 rounded-lg p-8 shadow bg-white dark:bg-gray-800 flex justify-center items-center flex-col lg:flex-row relative">
+        <div className="w-full lg:w-1/2 rounded-lg p-8 shadow bg-primary-light-white dark:bg-primary-dark-gray flex justify-center items-center flex-col lg:flex-row relative">
             {isEditProfile && (
                 <EditProfile
                     user={user}
@@ -40,14 +40,14 @@ function UserBanner({ user, setUser }: Props) {
                 <button
                     onClick={() => setIsEditProfile(true)}
                     title="Click to edit profile"
-                    className="hover:text-emerald-400 transition-colors"
+                    className="hover:text-accent-base transition-colors"
                 >
                     <IoCreateOutline />
                 </button>
                 <button
                     onClick={logOut}
                     title="Click to log out"
-                    className="hover:text-emerald-400 transition-colors"
+                    className="hover:text-accent-base transition-colors"
                 >
                     <IoExit />
                 </button>

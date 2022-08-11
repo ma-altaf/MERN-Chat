@@ -28,7 +28,7 @@ function RequestCmpt() {
     };
 
     return (
-        <div className="m-4 rounded-lg overflow-hidden bg-emerald-400 text-white flex justify-center items-center">
+        <div className="m-4 rounded-lg overflow-hidden bg-accent-base text-white flex justify-center items-center">
             {isRequesting ? (
                 <div className="p-4 flex flex-col justify-center">
                     <span className="flex items-center w-full">
@@ -69,7 +69,7 @@ function RequestCmpt() {
                     )}
                     <button
                         onClick={sendRequest}
-                        className="text-black bg-white py-2 px-4 rounded-lg"
+                        className="text-black bg-primary-light-white py-2 px-4 rounded-lg"
                     >
                         Send Request
                     </button>
