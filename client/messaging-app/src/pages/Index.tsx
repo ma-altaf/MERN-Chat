@@ -134,7 +134,7 @@ function Index() {
                     </h1>
 
                     {errorMessage && (
-                        <div className="bg-red-300 p-2 my-2 rounded-lg w-full">
+                        <div className="bg-warning-light p-2 my-2 rounded-lg w-full">
                             {errorMessage}
                         </div>
                     )}

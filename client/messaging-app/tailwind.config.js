@@ -23,6 +23,10 @@ module.exports = {
                     base: colors.emerald[400],
                     deep: colors.emerald[600],
                 },
+                warning: {
+                    light: colors.red[300],
+                    base: colors.red[500],
+                },
             },
         },
     },

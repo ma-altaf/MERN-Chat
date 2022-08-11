@@ -63,7 +63,7 @@ function RequestCmpt() {
                         id="reqUsername"
                     />
                     {errorMessage && (
-                        <p className="w-full -mt-2 mb-2 text-center text-red-500">
+                        <p className="w-full -mt-2 mb-2 text-center text-warning-base">
                             {errorMessage}
                         </p>
                     )}
