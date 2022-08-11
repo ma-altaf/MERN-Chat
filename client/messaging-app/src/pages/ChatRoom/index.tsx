@@ -58,12 +58,12 @@ function ChatRoom() {
             <ChatRoomInfoPanel roomID={roomID} />
             <div className="h-screen w-full col-span-2 flex flex-col justify-end">
                 <div
-                    className="w-full max-h-full flex flex-col overflow-y-auto px-4 relative scroll-smooth"
+                    className="w-full max-h-full flex flex-col overflow-y-auto px-4 relative scroll-smooth pt-16 md:pt-1"
                     ref={messageListRef}
                 >
                     {!isLastMessage && (
                         <button
-                            className="bg-primary-light-deepGray dark:bg-primary-dark-lightGray rounded-lg px-2 mt-16 md:mt-1 w-fit m-1 mx-auto"
+                            className="bg-primary-light-deepGray dark:bg-primary-dark-lightGray rounded-lg px-2 w-fit m-1 mx-auto"
                             onClick={getMsg}
                         >
                             Load more
