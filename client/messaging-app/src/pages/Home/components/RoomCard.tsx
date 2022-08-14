@@ -1,17 +1,26 @@
 import { Room } from "..";
 import defaultPPImg from "../../../assets/defaultPP.jpg";
 import { useNavigate } from "react-router-dom";
+import { motion } from "framer-motion";
 
 type Props = {
     room: Room;
+    index: number;
 };
 
-function RoomCard({ room }: Props) {
+function RoomCard({ room, index }: Props) {
     const navigate = useNavigate();
     const { roomID, username, avatarURL, about } = room;
 
     return (
-        <div
+        <motion.div
+            initial={{ opacity: 0, scale: 0.9 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{
+                delay: 0.3 + index * 0.1,
+                duration: 0.3,
+                ease: "easeOut",
+            }}
             className="bg-primary-light-white dark:bg-primary-dark-gray rounded-lg p-4 flex flex-col items-center shadow cursor-pointer"
             onClick={() =>
                 navigate(`/chat_room/${roomID}`, {
@@ -28,7 +37,7 @@ function RoomCard({ room }: Props) {
                 <h1 className="font-semibold text-lg">{username}</h1>
                 <p>{about}</p>
             </div>
-        </div>
+        </motion.div>
     );
 }
 

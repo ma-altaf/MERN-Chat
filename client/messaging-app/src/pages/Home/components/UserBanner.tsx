@@ -5,6 +5,7 @@ import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 import EditProfile from "./EditProfile";
 import defaultPPImg from "../../../assets/defaultPP.jpg";
+import { motion } from "framer-motion";
 
 type Props = {
     user: User | undefined;
@@ -28,7 +29,12 @@ function UserBanner({ user, setUser }: Props) {
     };
 
     return (
-        <div className="w-full lg:w-1/2 rounded-lg p-8 shadow bg-primary-light-white dark:bg-primary-dark-gray flex justify-center items-center flex-col lg:flex-row relative">
+        <motion.div
+            initial={{ opacity: 0, scale: 0.8 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 0.3 }}
+            className="w-full lg:w-1/2 rounded-lg p-8 shadow bg-primary-light-white dark:bg-primary-dark-gray flex justify-center items-center flex-col lg:flex-row relative"
+        >
             {isEditProfile && (
                 <EditProfile
                     user={user}
@@ -75,7 +81,7 @@ function UserBanner({ user, setUser }: Props) {
                     {user?.about || ""}
                 </p>
             </div>
-        </div>
+        </motion.div>
     );
 }
 

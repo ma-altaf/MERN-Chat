@@ -2,6 +2,7 @@ import { useState } from "react";
 import { IoClose } from "react-icons/io5";
 import { useNavigate } from "react-router-dom";
 import apiFetch from "../../../utils/apiFetch";
+import { motion } from "framer-motion";
 
 function RequestCmpt() {
     const [isRequesting, setIsRequesting] = useState(false);
@@ -28,7 +29,12 @@ function RequestCmpt() {
     };
 
     return (
-        <div className="m-4 rounded-lg overflow-hidden bg-accent-base text-white flex justify-center items-center">
+        <motion.div
+            initial={{ opacity: 0, scale: 0.8 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 0.3, delay: 0.2 }}
+            className="m-4 rounded-lg overflow-hidden bg-accent-base text-white flex justify-center items-center"
+        >
             {isRequesting ? (
                 <div className="p-4 flex flex-col justify-center">
                     <span className="flex items-center w-full">
@@ -82,7 +88,7 @@ function RequestCmpt() {
                     Add contact
                 </button>
             )}
-        </div>
+        </motion.div>
     );
 }
 
