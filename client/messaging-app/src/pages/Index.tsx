@@ -129,7 +129,9 @@ function Index() {
                     back
                 </a>
                 <motion.form
-                    transition={{ duration: 0.5 }}
+                    transition={{ duration: 0.3 }}
+                    initial={{ opacity: 0, scale: 0.8 }}
+                    animate={{ opacity: 1, scale: 1 }}
                     layout
                     className="w-full p-6"
                 >
@@ -138,7 +140,7 @@ function Index() {
                             key="logIn"
                             initial={{ opacity: 0 }}
                             animate={{ opacity: 1 }}
-                            transition={{ duration: 1 }}
+                            transition={{ duration: 0.3 }}
                             className="mb-2 text-3xl text-accent-base w-full"
                         >
                             Log In
@@ -148,7 +150,7 @@ function Index() {
                             key="createAcc"
                             initial={{ opacity: 0 }}
                             animate={{ opacity: 1 }}
-                            transition={{ duration: 1 }}
+                            transition={{ duration: 0.3 }}
                             className="mb-2 text-3xl text-accent-base w-full"
                         >
                             Create Account
