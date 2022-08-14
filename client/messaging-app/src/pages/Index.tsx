@@ -5,6 +5,7 @@ import { Navigate, useNavigate } from "react-router-dom";
 import { useContext } from "react";
 import { authcontext } from "../context/AuthContext";
 import { socketContext } from "../context/SocketContext";
+import { AnimatePresence, AnimateSharedLayout, motion } from "framer-motion";
 
 function Index() {
     const [isLogin, setIsLogin] = useState(false);
@@ -127,11 +128,32 @@ function Index() {
                 >
                     back
                 </a>
-
-                <form className="w-full p-6">
-                    <h1 className="mb-2 text-3xl text-accent-base w-full">
-                        {isLogin ? "Log In" : "Create Account"}
-                    </h1>
+                <motion.form
+                    transition={{ duration: 0.5 }}
+                    layout
+                    className="w-full p-6"
+                >
+                    {isLogin ? (
+                        <motion.h1
+                            key="logIn"
+                            initial={{ opacity: 0 }}
+                            animate={{ opacity: 1 }}
+                            transition={{ duration: 1 }}
+                            className="mb-2 text-3xl text-accent-base w-full"
+                        >
+                            Log In
+                        </motion.h1>
+                    ) : (
+                        <motion.h1
+                            key="createAcc"
+                            initial={{ opacity: 0 }}
+                            animate={{ opacity: 1 }}
+                            transition={{ duration: 1 }}
+                            className="mb-2 text-3xl text-accent-base w-full"
+                        >
+                            Create Account
+                        </motion.h1>
+                    )}
 
                     {errorMessage && (
                         <div className="bg-warning-light p-2 my-2 rounded-lg w-full">
@@ -141,7 +163,11 @@ function Index() {
 
                     {/* username input field */}
                     {!isLogin && (
-                        <div className="py-1">
+                        <motion.div
+                            initial={{ opacity: 0 }}
+                            animate={{ opacity: 1 }}
+                            className="py-1"
+                        >
                             <label className="text-gray-500" htmlFor="username">
                                 Name:
                             </label>
@@ -153,7 +179,7 @@ function Index() {
                                 value={username}
                                 onChange={(e) => setUsername(e.target.value)}
                             />
-                        </div>
+                        </motion.div>
                     )}
 
                     {/* email input field */}
@@ -187,7 +213,11 @@ function Index() {
                     </div>
 
                     {!isLogin && (
-                        <div className="py-1">
+                        <motion.div
+                            initial={{ opacity: 0 }}
+                            animate={{ opacity: 1 }}
+                            className="py-1"
+                        >
                             <label
                                 className="text-gray-500"
                                 htmlFor="confirm_password"
@@ -204,7 +234,7 @@ function Index() {
                                     setConfirmPassword(e.target.value)
                                 }
                             />
-                        </div>
+                        </motion.div>
                     )}
 
                     <input
@@ -231,7 +261,7 @@ function Index() {
                             {isLogin ? "Create Account" : "Log In"}
                         </p>
                     </h5>
-                </form>
+                </motion.form>
             </div>
         </div>
     );
