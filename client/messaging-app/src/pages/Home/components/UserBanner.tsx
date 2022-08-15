@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 import EditProfile from "./EditProfile";
 import defaultPPImg from "../../../assets/defaultPP.jpg";
-import { motion } from "framer-motion";
+import { AnimatePresence, motion } from "framer-motion";
 
 type Props = {
     user: User | undefined;
@@ -33,15 +33,17 @@ function UserBanner({ user, setUser }: Props) {
             initial={{ opacity: 0, scale: 0.8 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.3 }}
-            className="w-full lg:w-1/2 rounded-lg p-8 shadow bg-primary-light-white dark:bg-primary-dark-gray flex justify-center items-center flex-col lg:flex-row relative"
+            className="w-full lg:w-1/2 rounded-lg p-8 shadow bg-primary-light-white dark:bg-primary-dark-gray flex justify-center items-center flex-col lg:flex-row relative z-10"
         >
-            {isEditProfile && (
-                <EditProfile
-                    user={user}
-                    setUser={setUser}
-                    setIsEditProfile={setIsEditProfile}
-                />
-            )}
+            <AnimatePresence>
+                {isEditProfile && (
+                    <EditProfile
+                        user={user}
+                        setUser={setUser}
+                        setIsEditProfile={setIsEditProfile}
+                    />
+                )}
+            </AnimatePresence>
             <span className="absolute top-0 right-0 m-1 p-1 text-2xl">
                 <button
                     onClick={() => setIsEditProfile(true)}

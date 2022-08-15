@@ -5,6 +5,7 @@ import UserBanner from "./components/UserBanner";
 import { authcontext, User } from "../../context/AuthContext";
 import { socketContext } from "../../context/SocketContext";
 import apiFetch from "../../utils/apiFetch";
+import { AnimateSharedLayout } from "framer-motion";
 
 export type Room = {
     roomID: string;
@@ -35,13 +36,13 @@ function Home() {
     };
 
     return (
-        <>
-            <div className="w-full p-4 flex flex-col justify-center items-center">
-                <UserBanner user={user} setUser={setUser} />
+        <div className="w-full p-4 flex flex-col justify-center items-center overflow-hidden">
+            <UserBanner user={user} setUser={setUser} />
+            <AnimateSharedLayout>
                 <RequestCmpt />
                 <RoomList rooms={rooms} />
-            </div>
-        </>
+            </AnimateSharedLayout>
+        </div>
     );
 }
 

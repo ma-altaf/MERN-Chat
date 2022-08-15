@@ -135,27 +135,30 @@ function Index() {
                     layout
                     className="w-full p-6"
                 >
-                    {isLogin ? (
-                        <motion.h1
-                            key="logIn"
-                            initial={{ opacity: 0 }}
-                            animate={{ opacity: 1 }}
-                            transition={{ duration: 0.3 }}
-                            className="mb-2 text-3xl text-accent-base w-full"
-                        >
-                            Log In
-                        </motion.h1>
-                    ) : (
-                        <motion.h1
-                            key="createAcc"
-                            initial={{ opacity: 0 }}
-                            animate={{ opacity: 1 }}
-                            transition={{ duration: 0.3 }}
-                            className="mb-2 text-3xl text-accent-base w-full"
-                        >
-                            Create Account
-                        </motion.h1>
-                    )}
+                    <motion.h1
+                        layout
+                        className="mb-2 text-3xl text-accent-base w-full"
+                    >
+                        {isLogin ? (
+                            <motion.p
+                                key="logIn"
+                                initial={{ opacity: 0 }}
+                                animate={{ opacity: 1 }}
+                                transition={{ duration: 0.3 }}
+                            >
+                                Log In
+                            </motion.p>
+                        ) : (
+                            <motion.p
+                                key="createAcc"
+                                initial={{ opacity: 0 }}
+                                animate={{ opacity: 1 }}
+                                transition={{ duration: 0.3 }}
+                            >
+                                Create Account
+                            </motion.p>
+                        )}
+                    </motion.h1>
 
                     {errorMessage && (
                         <div className="bg-warning-light p-2 my-2 rounded-lg w-full">
@@ -164,28 +167,38 @@ function Index() {
                     )}
 
                     {/* username input field */}
-                    {!isLogin && (
-                        <motion.div
-                            initial={{ opacity: 0 }}
-                            animate={{ opacity: 1 }}
-                            className="py-1"
-                        >
-                            <label className="text-gray-500" htmlFor="username">
-                                Name:
-                            </label>
-                            <input
-                                className="w-full outline-none border-b-2 focus:border-black dark:focus:border-accent-base transition-all bg-transparent"
-                                type="text"
-                                name="username"
-                                id="username"
-                                value={username}
-                                onChange={(e) => setUsername(e.target.value)}
-                            />
-                        </motion.div>
-                    )}
+                    <AnimatePresence initial={false}>
+                        {!isLogin && (
+                            <motion.div
+                                layout
+                                initial={{ opacity: 0, height: 0 }}
+                                animate={{ opacity: 1, height: "auto" }}
+                                transition={{ type: "keyframes" }}
+                                exit={{ opacity: 0, height: 0 }}
+                                className="overflow-hidden"
+                            >
+                                <label
+                                    className="text-gray-500"
+                                    htmlFor="username"
+                                >
+                                    Name:
+                                </label>
+                                <input
+                                    className="w-full outline-none border-b-2 focus:border-black dark:focus:border-accent-base transition-all bg-transparent"
+                                    type="text"
+                                    name="username"
+                                    id="username"
+                                    value={username}
+                                    onChange={(e) =>
+                                        setUsername(e.target.value)
+                                    }
+                                />
+                            </motion.div>
+                        )}
+                    </AnimatePresence>
 
                     {/* email input field */}
-                    <div className="py-1">
+                    <motion.div layout>
                         <label className="text-gray-500" htmlFor="email">
                             Email:
                         </label>
@@ -197,10 +210,10 @@ function Index() {
                             value={email}
                             onChange={(e) => setEmail(e.target.value)}
                         />
-                    </div>
+                    </motion.div>
 
                     {/* password input field */}
-                    <div className="py-1">
+                    <motion.div layout>
                         <label className="text-gray-500" htmlFor="password">
                             Password:
                         </label>
@@ -212,34 +225,39 @@ function Index() {
                             value={password}
                             onChange={(e) => setPassword(e.target.value)}
                         />
-                    </div>
+                    </motion.div>
 
-                    {!isLogin && (
-                        <motion.div
-                            initial={{ opacity: 0 }}
-                            animate={{ opacity: 1 }}
-                            className="py-1"
-                        >
-                            <label
-                                className="text-gray-500"
-                                htmlFor="confirm_password"
+                    <AnimatePresence initial={false}>
+                        {!isLogin && (
+                            <motion.div
+                                layout
+                                initial={{ opacity: 0, height: 0 }}
+                                animate={{ opacity: 1, height: "auto" }}
+                                transition={{ type: "keyframes" }}
+                                exit={{ opacity: 0, height: 0 }}
+                                className="overflow-hidden"
                             >
-                                Confirm Password:
-                            </label>
-                            <input
-                                className="w-full outline-none border-b-2 focus:border-black dark:focus:border-accent-base transition-all bg-transparent"
-                                type="password"
-                                name="password"
-                                id="confirm_password"
-                                value={confirmPassword}
-                                onChange={(e) =>
-                                    setConfirmPassword(e.target.value)
-                                }
-                            />
-                        </motion.div>
-                    )}
-
-                    <input
+                                <label
+                                    className="text-gray-500"
+                                    htmlFor="confirm_password"
+                                >
+                                    Confirm Password:
+                                </label>
+                                <input
+                                    className="w-full outline-none border-b-2 focus:border-black dark:focus:border-accent-base transition-all bg-transparent"
+                                    type="password"
+                                    name="password"
+                                    id="confirm_password"
+                                    value={confirmPassword}
+                                    onChange={(e) =>
+                                        setConfirmPassword(e.target.value)
+                                    }
+                                />
+                            </motion.div>
+                        )}
+                    </AnimatePresence>
+                    <motion.input
+                        layout
                         type="button"
                         value="submit"
                         className="px-4 py-2 bg-accent-base transition-colors hover:bg-accent-deep text-white rounded-lg uppercase my-4 cursor-pointer"

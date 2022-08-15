@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { User } from "../../../context/AuthContext";
 import apiFetch from "../../../utils/apiFetch";
 import EditableProfileImg from "./EditableProfileImg";
+import { motion } from "framer-motion";
 
 type Props = {
     user: User | undefined;
@@ -51,11 +52,19 @@ function EditProfile({ user, setUser, setIsEditProfile }: Props) {
     };
 
     return (
-        <div
+        <motion.div
+            initial={{ opacity: 0 }}
+            exit={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.3 }}
             className="fixed top-0 left-0 flex justify-center items-center z-50 w-screen h-screen m-0 p-0 bg-black bg-opacity-80"
             onClick={() => setIsEditProfile(false)}
         >
-            <div
+            <motion.div
+                initial={{ scale: 0.8 }}
+                exit={{ scale: 0.8 }}
+                animate={{ scale: 1 }}
+                transition={{ duration: 0.3 }}
                 className="flex flex-col justify-center items-start rounded-lg max-w-[90%] md:max-w-1/2 h-fit max-h-[95%] overflow-y-auto bg-primary-light-white dark:bg-primary-dark-gray p-1 md:p-3"
                 onClick={(e) => e.stopPropagation()}
             >
@@ -101,8 +110,8 @@ function EditProfile({ user, setUser, setIsEditProfile }: Props) {
                         Close
                     </button>
                 </span>
-            </div>
-        </div>
+            </motion.div>
+        </motion.div>
     );
 }
 

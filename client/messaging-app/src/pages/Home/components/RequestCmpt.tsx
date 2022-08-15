@@ -30,14 +30,24 @@ function RequestCmpt() {
 
     return (
         <motion.div
+            layout
             initial={{ opacity: 0, scale: 0.8 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.3, delay: 0.2 }}
-            className="m-4 rounded-lg overflow-hidden bg-accent-base text-white flex justify-center items-center"
+            className="m-4 w-fit rounded-lg overflow-hidden bg-accent-base text-white flex justify-center items-center"
         >
             {isRequesting ? (
-                <div className="p-4 flex flex-col justify-center">
-                    <span className="flex items-center w-full">
+                <motion.div
+                    key="requestPanel"
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    transition={{
+                        layout: { duration: 0.3 },
+                        opacity: { delay: 0.3 },
+                    }}
+                    className="p-4 flex flex-col justify-center"
+                >
+                    <span className="flex items-center">
                         <button
                             className="p-1 mr-1"
                             onClick={() => {
@@ -79,14 +89,20 @@ function RequestCmpt() {
                     >
                         Send Request
                     </button>
-                </div>
+                </motion.div>
             ) : (
-                <button
+                <motion.button
+                    transition={{
+                        layout: { duration: 0.3 },
+                        opacity: { delay: 0.3 },
+                    }}
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
                     className="py-2 px-4"
                     onClick={() => setIsRequesting(true)}
                 >
                     Add contact
-                </button>
+                </motion.button>
             )}
         </motion.div>
     );
