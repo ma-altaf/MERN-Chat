@@ -137,27 +137,13 @@ function Index() {
                 >
                     <motion.h1
                         layout
+                        key={`${isLogin}`}
                         className="mb-2 text-3xl text-accent-base w-full"
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                        transition={{ duration: 0.3 }}
                     >
-                        {isLogin ? (
-                            <motion.p
-                                key="logIn"
-                                initial={{ opacity: 0 }}
-                                animate={{ opacity: 1 }}
-                                transition={{ duration: 0.3 }}
-                            >
-                                Log In
-                            </motion.p>
-                        ) : (
-                            <motion.p
-                                key="createAcc"
-                                initial={{ opacity: 0 }}
-                                animate={{ opacity: 1 }}
-                                transition={{ duration: 0.3 }}
-                            >
-                                Create Account
-                            </motion.p>
-                        )}
+                        {isLogin ? "Log In" : "Create Account"}
                     </motion.h1>
 
                     {errorMessage && (
@@ -263,7 +249,11 @@ function Index() {
                         className="px-4 py-2 bg-accent-base transition-colors hover:bg-accent-deep text-white rounded-lg uppercase my-4 cursor-pointer"
                         onClick={() => submitForm()}
                     />
-                    <h5>
+                    <motion.h5
+                        key={`${isLogin}Link`}
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                    >
                         {isLogin
                             ? "Don't have an account? "
                             : "Already have an account? "}
@@ -280,7 +270,7 @@ function Index() {
                         >
                             {isLogin ? "Create Account" : "Log In"}
                         </p>
-                    </h5>
+                    </motion.h5>
                 </motion.form>
             </div>
         </div>
