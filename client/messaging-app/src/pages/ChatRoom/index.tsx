@@ -46,7 +46,7 @@ function ChatRoom() {
         };
     }, [socket]);
 
-    const getMsg = async () => {
+    const getMsg = () => {
         if (!isMoreMsgRequested.current) {
             isMoreMsgRequested.current = true;
             socket?.emit("get_msg");

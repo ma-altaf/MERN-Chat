@@ -3,6 +3,7 @@ import { IoArrowBack } from "react-icons/io5";
 import { Link, useLocation } from "react-router-dom";
 import apiFetch from "../../../utils/apiFetch";
 import defaultPPImg from "../../../assets/defaultPP.jpg";
+import { motion } from "framer-motion";
 
 type State = {
     avatarURL: string | undefined;
@@ -48,15 +49,30 @@ function ChatRoomInfoPanel({ roomID }: Props) {
             >
                 <IoArrowBack />
             </Link>
-            <img
+            <motion.img
+                initial={{ opacity: 0, scale: 0.8 }}
+                animate={{ opacity: 1, scale: 1 }}
+                transition={{ duration: 0.3 }}
                 className="aspect-square w-10 md:w-[50%] rounded-full object-cover"
                 src={state?.avatarURL || defaultPPImg}
                 alt={state?.username}
             />
-            <p className="text-xl mx-2 md:text-3xl md:my-4">
+            <motion.p
+                initial={{ opacity: 0, translateY: "25%" }}
+                animate={{ opacity: 1, translateY: 0 }}
+                transition={{ duration: 0.3, delay: 0.2 }}
+                className="text-xl mx-2 md:text-3xl md:my-4"
+            >
                 {state?.username}
-            </p>
-            <p className="p-4 hidden md:block">{state?.about}</p>
+            </motion.p>
+            <motion.p
+                initial={{ opacity: 0, translateY: "25%" }}
+                animate={{ opacity: 1, translateY: 0 }}
+                transition={{ duration: 0.3, delay: 0.3 }}
+                className="p-4 hidden md:block"
+            >
+                {state?.about}
+            </motion.p>
         </div>
     );
 }
