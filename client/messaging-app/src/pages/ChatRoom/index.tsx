@@ -54,6 +54,7 @@ function ChatRoom() {
         }
     };
 
+    // ensures scroll to bottom is only visible when the user has scrolled a bit
     if (messageListRef.current) {
         messageListRef.current.onscroll = (ev) => {
             if (
@@ -70,6 +71,7 @@ function ChatRoom() {
     return (
         <div className="w-full h-screen grid grid-cols-1 md:grid-cols-3">
             <ChatRoomInfoPanel roomID={roomID} />
+
             <div className="h-screen w-full col-span-2 flex flex-col justify-end">
                 <div
                     className="w-full max-h-full flex flex-col-reverse overflow-y-auto px-4 relative scroll-smooth pt-16 md:pt-1"
@@ -88,6 +90,7 @@ function ChatRoom() {
                         </button>
                     )}
                 </div>
+
                 <AnimatePresence>
                     {isScrolled && (
                         <motion.button
@@ -108,6 +111,7 @@ function ChatRoom() {
                         </motion.button>
                     )}
                 </AnimatePresence>
+
                 <MessagingBanner
                     roomID={roomID}
                     socket={socket}
