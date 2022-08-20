@@ -18,14 +18,14 @@ function ChatRoom() {
 
     useEffect(() => {
         const getPrevMsg = (messageRes: messageType[]) => {
-            messageRes.reverse();
-            setMessages((prev) => [...messageRes, ...prev]);
+            // setMessages((prev) => [...messageRes, ...prev]);
+            setMessages((prev) => [...prev, ...messageRes]);
             setIsLastMessage(messageRes.length < NUM_MSG);
             isMoreMsgRequested.current = false;
         };
 
         const newMsg = (msg: messageType) =>
-            setMessages((prev) => [...prev, msg]);
+            setMessages((prev) => [msg, ...prev]);
 
         socket?.on("joined", getPrevMsg);
 
@@ -57,21 +57,9 @@ function ChatRoom() {
             <ChatRoomInfoPanel roomID={roomID} />
             <div className="h-screen w-full col-span-2 flex flex-col justify-end">
                 <div
-                    className="w-full max-h-full flex flex-col overflow-y-auto px-4 relative scroll-smooth pt-16 md:pt-1"
+                    className="w-full max-h-full flex flex-col-reverse overflow-y-auto px-4 relative scroll-smooth pt-16 md:pt-1"
                     ref={messageListRef}
                 >
-                    {!isLastMessage && (
-                        <button
-                            className="bg-primary-light-deepGray dark:bg-primary-dark-lightGray rounded-lg px-2 w-fit m-1 mx-auto"
-                            onClick={getMsg}
-                        >
-                            Load more
-                        </button>
-                    )}
-                    {messages.map((msg: messageType, i) => (
-                        <Message key={i} message={msg} />
-                    ))}
-                    {/* TODO: make the component only available when scroll is needed */}
                     <button
                         className="sticky bottom-0 right-0 mr-auto my-2 py-1 px-2 bg-primary-light-deepGray dark:bg-primary-dark-lightGray rounded-lg w-fit"
                         onClick={() => {
@@ -82,6 +70,19 @@ function ChatRoom() {
                     >
                         Scroll to bottom
                     </button>
+                    {messages.map((msg: messageType, i) => (
+                        <Message key={i} message={msg} />
+                    ))}
+                    {/* TODO: make the component only available when scroll is needed */}
+
+                    {!isLastMessage && (
+                        <button
+                            className="bg-primary-light-deepGray dark:bg-primary-dark-lightGray rounded-lg px-2 w-fit m-1 mx-auto"
+                            onClick={getMsg}
+                        >
+                            Load more
+                        </button>
+                    )}
                 </div>
                 <MessagingBanner
                     roomID={roomID}
