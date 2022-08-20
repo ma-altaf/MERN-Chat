@@ -1,5 +1,6 @@
 import { useContext } from "react";
 import { authcontext } from "../../../context/AuthContext";
+import { motion } from "framer-motion";
 
 export type MsgContentType = "text" | "image" | "video" | "audio";
 
@@ -26,21 +27,23 @@ function Message({ message }: Props) {
                     : "justify-start"
             }`}
         >
-            <div
-                className={`p-1 m-1 rounded-lg  w-fit h-fit max-w-[90%] md:max-w-[60%] break-words overflow-hidden ${
+            <motion.div
+                initial={{ opacity: 0, scale: 0.8 }}
+                animate={{ opacity: 1, scale: 1 }}
+                className={`p-1 m-1 rounded-lg w-fit h-fit max-w-[90%] md:max-w-[60%] break-words overflow-hidden ${
                     sender.username === user?.username
                         ? "bg-accent-base"
                         : "bg-primary-light-gray dark:bg-primary-dark-gray"
                 }`}
             >
                 <MsgContent type={type} content={content} />
-                <p className="w-full text-right">
+                <p className="w-full text-right text-sm">
                     {new Date(createdAt).toLocaleString("en-US", {
                         dateStyle: "short",
                         timeStyle: "short",
                     })}
                 </p>
-            </div>
+            </motion.div>
         </span>
     );
 }
@@ -73,7 +76,7 @@ function MsgContent({ type, content }: ContentProp) {
                 ></audio>
             );
     }
-    return <p>{content}</p>;
+    return <p className="px-1">{content}</p>;
 }
 
 export default Message;

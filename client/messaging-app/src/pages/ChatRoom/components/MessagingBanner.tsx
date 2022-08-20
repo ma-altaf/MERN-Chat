@@ -39,7 +39,7 @@ function MessagingBanner({ roomID, socket, setMessages }: Props) {
         setMessage("");
 
         // display message locally
-        setMessages((prev: messageType[]) => [...prev, newMsg]);
+        setMessages((prev: messageType[]) => [newMsg, ...prev]);
     };
 
     const sendFileMsg = async (
