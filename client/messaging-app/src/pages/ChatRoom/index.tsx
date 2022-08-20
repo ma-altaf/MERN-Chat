@@ -4,6 +4,8 @@ import Message, { messageType } from "./components/Message";
 import { socketContext } from "../../context/SocketContext";
 import ChatRoomInfoPanel from "./components/ChatRoomInfoPanel";
 import MessagingBanner from "./components/MessagingBanner";
+import { IoArrowDown } from "react-icons/io5";
+import { motion, AnimatePresence } from "framer-motion";
 
 const NUM_MSG = 10;
 
@@ -14,11 +16,11 @@ function ChatRoom() {
     const [socket] = useContext(socketContext);
     const [messages, setMessages] = useState<messageType[]>([]);
     const [isLastMessage, setIsLastMessage] = useState(false);
+    const [isScrolled, setIsScrolled] = useState(false);
     const messageListRef = useRef<HTMLDivElement>(null);
 
     useEffect(() => {
         const getPrevMsg = (messageRes: messageType[]) => {
-            // setMessages((prev) => [...messageRes, ...prev]);
             setMessages((prev) => [...prev, ...messageRes]);
             setIsLastMessage(messageRes.length < NUM_MSG);
             isMoreMsgRequested.current = false;
@@ -52,6 +54,19 @@ function ChatRoom() {
         }
     };
 
+    if (messageListRef.current) {
+        messageListRef.current.onscroll = (ev) => {
+            if (
+                messageListRef.current &&
+                messageListRef.current?.scrollTop < -100
+            ) {
+                setIsScrolled(true);
+            } else {
+                setIsScrolled(false);
+            }
+        };
+    }
+
     return (
         <div className="w-full h-screen grid grid-cols-1 md:grid-cols-3">
             <ChatRoomInfoPanel roomID={roomID} />
@@ -60,20 +75,9 @@ function ChatRoom() {
                     className="w-full max-h-full flex flex-col-reverse overflow-y-auto px-4 relative scroll-smooth pt-16 md:pt-1"
                     ref={messageListRef}
                 >
-                    <button
-                        className="sticky bottom-0 right-0 mr-auto my-2 py-1 px-2 bg-primary-light-deepGray dark:bg-primary-dark-lightGray rounded-lg w-fit"
-                        onClick={() => {
-                            messageListRef.current &&
-                                (messageListRef.current.scrollTop =
-                                    messageListRef.current?.scrollHeight || 0);
-                        }}
-                    >
-                        Scroll to bottom
-                    </button>
                     {messages.map((msg: messageType, i) => (
                         <Message key={i} message={msg} />
                     ))}
-                    {/* TODO: make the component only available when scroll is needed */}
 
                     {!isLastMessage && (
                         <button
@@ -84,6 +88,26 @@ function ChatRoom() {
                         </button>
                     )}
                 </div>
+                <AnimatePresence>
+                    {isScrolled && (
+                        <motion.button
+                            initial={{ opacity: 0, scale: 0.8 }}
+                            animate={{ opacity: 1, scale: 1 }}
+                            exit={{ opacity: 0, scale: 0.8 }}
+                            transition={{ duration: 0.3 }}
+                            className="absolute z-50 bottom-12 right-4 md:right-8 mr-auto my-2 p-4 bg-primary-light-deepGray dark:bg-primary-dark-lightGray rounded-lg w-fit"
+                            title="Click to scroll to bottom"
+                            onClick={() => {
+                                messageListRef.current &&
+                                    (messageListRef.current.scrollTop =
+                                        messageListRef.current?.scrollHeight ||
+                                        0);
+                            }}
+                        >
+                            <IoArrowDown />
+                        </motion.button>
+                    )}
+                </AnimatePresence>
                 <MessagingBanner
                     roomID={roomID}
                     socket={socket}
