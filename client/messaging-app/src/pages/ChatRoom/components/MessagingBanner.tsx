@@ -1,3 +1,4 @@
+import { motion, AnimatePresence } from "framer-motion";
 import { ChangeEvent, useContext, useState } from "react";
 import { IoAttach, IoImage, IoVideocam, IoMusicalNotes } from "react-icons/io5";
 import { Socket } from "socket.io-client";
@@ -82,55 +83,63 @@ function MessagingBanner({ roomID, socket, setMessages }: Props) {
                 >
                     <IoAttach />
                 </button>
-                {isAttachPanelVisible && (
-                    <div className="bg-primary-light-gray dark:bg-primary-dark-gray p-1 rounded-lg absolute top-0 right-0 w-fit flex flex-col flex-wrap justify-evenly -translate-y-[100%]">
-                        <input
-                            type="file"
-                            className="hidden"
-                            onChange={(e) => sendFileMsg(e, "image")}
-                            id="getImgBtn"
-                            accept="image/*"
-                            multiple
-                        />
-                        <label
-                            className="py-2 px-4 flex items-center bg-primary-light-deepGray dark:bg-primary-dark-deepGray rounded-full cursor-pointer m-1 transition-colors hover:bg-accent-base hover:text-white"
-                            htmlFor="getImgBtn"
+                <AnimatePresence>
+                    {isAttachPanelVisible && (
+                        <motion.div
+                            initial={{ height: 0, opacity: 0 }}
+                            animate={{ height: "auto", opacity: 1 }}
+                            exit={{ height: 0, opacity: 0 }}
+                            transition={{ duration: 0.2, ease: "easeInOut" }}
+                            className="bg-primary-light-gray dark:bg-primary-dark-gray p-1 rounded-lg absolute top-0 right-0 w-fit flex flex-col justify-evenly -translate-y-[100%] overflow-hidden"
                         >
-                            <IoImage />
-                            <p className="ml-3">Image</p>
-                        </label>
-                        <input
-                            type="file"
-                            className="hidden"
-                            onChange={(e) => sendFileMsg(e, "video")}
-                            id="getVidBtn"
-                            accept="video/*"
-                            multiple
-                        />
-                        <label
-                            htmlFor="getVidBtn"
-                            className="py-2 px-4 flex items-center bg-primary-light-deepGray dark:bg-primary-dark-deepGray rounded-full cursor-pointer m-1 transition-colors hover:bg-accent-base hover:text-white"
-                        >
-                            <IoVideocam />
-                            <p className="ml-3">Video</p>
-                        </label>
-                        <input
-                            type="file"
-                            className="hidden"
-                            onChange={(e) => sendFileMsg(e, "audio")}
-                            id="getAudioBtn"
-                            accept="audio/*"
-                            multiple
-                        />
-                        <label
-                            htmlFor="getAudioBtn"
-                            className="py-2 px-4 flex items-center bg-primary-light-deepGray dark:bg-primary-dark-deepGray rounded-full cursor-pointer m-1 transition-colors hover:bg-accent-base hover:text-white"
-                        >
-                            <IoMusicalNotes />
-                            <p className="ml-3">Audio</p>
-                        </label>
-                    </div>
-                )}
+                            <input
+                                type="file"
+                                className="hidden"
+                                onChange={(e) => sendFileMsg(e, "image")}
+                                id="getImgBtn"
+                                accept="image/*"
+                                multiple
+                            />
+                            <label
+                                className="py-2 px-4 flex items-center bg-primary-light-deepGray dark:bg-primary-dark-deepGray rounded-full cursor-pointer m-1 transition-colors hover:bg-accent-base hover:text-white"
+                                htmlFor="getImgBtn"
+                            >
+                                <IoImage />
+                                <p className="ml-3">Image</p>
+                            </label>
+                            <input
+                                type="file"
+                                className="hidden"
+                                onChange={(e) => sendFileMsg(e, "video")}
+                                id="getVidBtn"
+                                accept="video/*"
+                                multiple
+                            />
+                            <label
+                                htmlFor="getVidBtn"
+                                className="py-2 px-4 flex items-center bg-primary-light-deepGray dark:bg-primary-dark-deepGray rounded-full cursor-pointer m-1 transition-colors hover:bg-accent-base hover:text-white"
+                            >
+                                <IoVideocam />
+                                <p className="ml-3">Video</p>
+                            </label>
+                            <input
+                                type="file"
+                                className="hidden"
+                                onChange={(e) => sendFileMsg(e, "audio")}
+                                id="getAudioBtn"
+                                accept="audio/*"
+                                multiple
+                            />
+                            <label
+                                htmlFor="getAudioBtn"
+                                className="py-2 px-4 flex items-center bg-primary-light-deepGray dark:bg-primary-dark-deepGray rounded-full cursor-pointer m-1 transition-colors hover:bg-accent-base hover:text-white"
+                            >
+                                <IoMusicalNotes />
+                                <p className="ml-3">Audio</p>
+                            </label>
+                        </motion.div>
+                    )}
+                </AnimatePresence>
             </span>
 
             <button
