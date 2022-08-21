@@ -98,6 +98,7 @@ function ChatRoom() {
                             animate={{ opacity: 1, scale: 1 }}
                             exit={{ opacity: 0, scale: 0.8 }}
                             transition={{ duration: 0.3 }}
+                            whileHover={{ borderRadius: "99px" }}
                             className="absolute z-50 bottom-12 right-4 md:right-8 mr-auto my-2 p-4 bg-primary-light-deepGray dark:bg-primary-dark-lightGray rounded-lg w-fit"
                             title="Click to scroll to bottom"
                             onClick={() => {

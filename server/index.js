@@ -9,6 +9,7 @@ const registration = require("./routes/registration");
 const user = require("./routes/user");
 const jwtAuthenticateToken = require("./middleware/jwtAuthenticateToken");
 const Message = require("./models/messageModel");
+const Room = require("./models/roomModel");
 const jwt = require("jsonwebtoken");
 const cloudinary = require("./utils/cloudinary");
 
@@ -166,6 +167,10 @@ mongoose
                         sender: mongoose.Types.ObjectId(userID),
                         roomID: mongoose.Types.ObjectId(roomID),
                         type,
+                    });
+                    // update the room modifiedAt date
+                    await Room.findByIdAndUpdate(roomID, {
+                        modifiedAt: Date.now(),
                     });
                 });
 
