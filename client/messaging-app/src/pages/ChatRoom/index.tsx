@@ -9,19 +9,19 @@ import ScrollBtn from "./components/ScrollBtn";
 const NUM_MSG = 10;
 
 function ChatRoom() {
-    const isMoreMsgRequested = useRef(false);
     const isMsgRequested = useRef(false);
     const { roomID } = useParams();
     const [socket] = useContext(socketContext);
     const [messages, setMessages] = useState<messageType[]>([]);
     const [isLastMessage, setIsLastMessage] = useState(false);
+    const [isMsgLoading, setIsMsgLoading] = useState(false);
     const messageListRef = useRef<HTMLDivElement>(null);
 
     useEffect(() => {
         const getPrevMsg = (messageRes: messageType[]) => {
             setMessages((prev) => [...prev, ...messageRes]);
             setIsLastMessage(messageRes.length < NUM_MSG);
-            isMoreMsgRequested.current = false;
+            setIsMsgLoading(false);
         };
 
         const newMsg = (msg: messageType) =>
@@ -46,8 +46,8 @@ function ChatRoom() {
     }, [socket]);
 
     const getMsg = () => {
-        if (!isMoreMsgRequested.current) {
-            isMoreMsgRequested.current = true;
+        if (!isMsgLoading) {
+            setIsMsgLoading(true);
             socket?.emit("get_msg");
         }
     };
@@ -67,10 +67,11 @@ function ChatRoom() {
 
                     {!isLastMessage && (
                         <button
+                            disabled={isMsgLoading}
                             className="bg-primary-light-deepGray dark:bg-primary-dark-lightGray rounded-lg px-2 w-fit m-1 mx-auto"
                             onClick={getMsg}
                         >
-                            Load more
+                            {isMsgLoading ? "Loading..." : "Load more"}
                         </button>
                     )}
                 </div>
