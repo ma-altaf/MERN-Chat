@@ -5,7 +5,7 @@ import { Navigate, useNavigate } from "react-router-dom";
 import { useContext } from "react";
 import { authcontext } from "../context/AuthContext";
 import { socketContext } from "../context/SocketContext";
-import { AnimatePresence, AnimateSharedLayout, motion } from "framer-motion";
+import { AnimatePresence, motion } from "framer-motion";
 
 function Index() {
     const [isLogin, setIsLogin] = useState(false);

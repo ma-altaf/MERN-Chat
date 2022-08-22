@@ -2,10 +2,10 @@ import { useContext, useEffect, useState } from "react";
 import RequestCmpt from "./components/RequestCmpt";
 import RoomList from "./components/RoomList";
 import UserBanner from "./components/UserBanner";
-import { authcontext, User } from "../../context/AuthContext";
+import { authcontext } from "../../context/AuthContext";
 import { socketContext } from "../../context/SocketContext";
 import apiFetch from "../../utils/apiFetch";
-import { AnimateSharedLayout } from "framer-motion";
+import { LayoutGroup } from "framer-motion";
 
 export type Room = {
     roomID: string;
@@ -38,10 +38,10 @@ function Home() {
     return (
         <div className="w-full p-4 flex flex-col justify-center items-center overflow-hidden">
             <UserBanner user={user} setUser={setUser} />
-            <AnimateSharedLayout>
+            <LayoutGroup>
                 <RequestCmpt />
                 <RoomList rooms={rooms} />
-            </AnimateSharedLayout>
+            </LayoutGroup>
         </div>
     );
 }
