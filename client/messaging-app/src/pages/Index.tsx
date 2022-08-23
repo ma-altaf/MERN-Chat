@@ -95,27 +95,38 @@ function Index() {
             {/* description */}
             <div
                 id="description"
-                className="h-screen col-span-2 text-white p-8"
+                className="h-screen col-span-2 text-white p-8 object-cover bg-fixed bg-center flex items-center justify-center"
                 style={{
                     backgroundImage: `url(${landingImg})`,
-                    objectFit: "cover",
-                    backgroundAttachment: "fixed",
                 }}
             >
-                <h1 className="text-6xl">LOGO</h1>
-                <p className="text-xl my-4">
-                    Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                    Fugit, similique aut. Corrupti reprehenderit perferendis,
-                    accusamus asperiores, modi quod aliquid corporis porro
-                    itaque quae deserunt totam? Earum reiciendis perferendis
-                    commodi distinctio!
-                </p>
-                <a
-                    className="px-4 py-2 bg-accent-base transition-colors hover:bg-accent-deep rounded-lg uppercase cursor-pointer md:hidden"
-                    href="#formIpnut"
-                >
-                    register
-                </a>
+                <span className="flex flex-col items-center justify-center">
+                    <motion.h1
+                        initial={{ opacity: 0, translateY: "25%" }}
+                        animate={{ opacity: 1, translateY: 0 }}
+                        transition={{ duration: 0.3 }}
+                        className="text-6xl"
+                    >
+                        MERN Chat
+                    </motion.h1>
+                    <motion.p
+                        initial={{ opacity: 0, translateY: "25%" }}
+                        animate={{ opacity: 1, translateY: 0 }}
+                        transition={{ duration: 0.3, delay: 0.2 }}
+                        className="text-xl my-4"
+                    >
+                        Keep in touch with friends and family!
+                    </motion.p>
+                    <motion.a
+                        initial={{ opacity: 0, translateY: "25%" }}
+                        animate={{ opacity: 1, translateY: 0 }}
+                        transition={{ duration: 0.3, delay: 0.3 }}
+                        className="px-4 py-2 bg-accent-base transition-colors hover:bg-accent-deep rounded-lg uppercase cursor-pointer md:hidden"
+                        href="#formIpnut"
+                    >
+                        register
+                    </motion.a>
+                </span>
             </div>
             {/* login form */}
             <div
@@ -129,7 +140,7 @@ function Index() {
                     back
                 </a>
                 <motion.form
-                    transition={{ duration: 0.3 }}
+                    transition={{ duration: 0.3, delay: 0.3 }}
                     initial={{ opacity: 0, scale: 0.8 }}
                     animate={{ opacity: 1, scale: 1 }}
                     layout
