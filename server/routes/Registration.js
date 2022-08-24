@@ -136,7 +136,8 @@ router
 
     .post("/changeUsername", jwtAuthenticateToken, async (req, res) => {
         const { userID, newUsername } = req.body;
-
+        if (newUsername.trim().length === 0)
+            res.status(400).send({ error: "Username cannot be empty" });
         try {
             await User.findByIdAndUpdate(userID, { username: newUsername });
             res.status(200).end();

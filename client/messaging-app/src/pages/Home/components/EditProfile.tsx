@@ -22,18 +22,22 @@ function EditProfile({ user, setUser, setIsEditProfile }: Props) {
     }, [user]);
 
     const changeName = async () => {
-        const res = await apiFetch("/users/changeUsername", "POST", {
-            newUsername,
-        });
+        if (newUsername.trim()) {
+            const res = await apiFetch("/users/changeUsername", "POST", {
+                newUsername,
+            });
 
-        if (res.ok) {
-            setUser?.((prev) => ({ ...prev, username: newUsername }));
-            setIsEditProfile(false);
+            if (res.ok) {
+                setUser?.((prev) => ({ ...prev, username: newUsername }));
+                setIsEditProfile(false);
+            } else {
+                setNewUsername(user?.username || "");
+                window.alert(
+                    "Username could not be changed. The username might not be available."
+                );
+            }
         } else {
             setNewUsername(user?.username || "");
-            window.alert(
-                "Username could not be changed. The username might not be available."
-            );
         }
     };
 
