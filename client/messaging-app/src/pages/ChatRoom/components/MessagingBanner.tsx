@@ -46,6 +46,7 @@ function MessagingBanner({ roomID, socket, setMessages }: Props) {
         e: ChangeEvent<HTMLInputElement>,
         msgType: MsgContentType
     ) => {
+        setIsAttachPanelVisible(false);
         const files = e.target.files;
         if (!files) {
             return;
