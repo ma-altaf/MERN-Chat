@@ -1,4 +1,4 @@
-# MERN-app
+# MERN-Chat
 
 Send and receive messages containing text, images, videos and audios.
 
