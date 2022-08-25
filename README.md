@@ -2,6 +2,8 @@
 
 Send and receive messages containing text, images, videos and audios.
 
+Check out the video demo of the website on my portfolio website: [video demo](https://altafagowun.web.app/works/mernchat.html)
+
 ## Library used
 
 ### Front-end
